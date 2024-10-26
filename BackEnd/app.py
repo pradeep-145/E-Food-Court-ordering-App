@@ -26,9 +26,9 @@ class daily_food(db.Model):
 
 class cart(db.Model):
     id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(100))
-    price=db.Column(db.Float)
-    quantity=db.Column(db.Integer)
+    user=db.Column(db.String(150))
+    item=db.Column(db.JSON)
+
 
 @app.route('/',methods=['GET'])
 def get_all():
@@ -63,23 +63,33 @@ def update_food():
             db.session.commit()
     return jsonify({'message': 'Items updated successfully!'})
 
-@app.route('/cart',methods=['POST'])
-def cart():
-    data=request.get_json()
-    for item in data:
-        new_cart=cart(
-            name=item['name'],
-            price=item['price'],
-            quantity=item['quantity']
-        )
+@app.route('/cart', methods=['POST'])
+def cart_update():
+    data = request.get_json()
+    user = data.get('user')
+    items = data.get('items')
+    
+    if not user or not items:
+        return jsonify({'message': 'Invalid data!'})
+
+    new_cart = cart.query.filter_by(user=user).first()
+
+    if new_cart:
+        existing_items = new_cart.item  
+        updated_items = existing_items + items
+        new_cart.item = updated_items  
+        message = 'Cart updated successfully!'
+    else:
+        new_cart = cart(user=user, item=items)  
         db.session.add(new_cart)
+        message = 'All items added to cart successfully!'
     db.session.commit()
-    return jsonify({'message':'All items added to cart successfully!'})
+    return jsonify({'message': message})
 
 @app.route('/cart',methods=['GET'])
 def get_cart():
     cart_items=cart.query.all()
-    output=[{'name':item.name,'price':item.price,'quantity':item.quantity} for item in cart_items]
+    output=[{'user':item.user,'items':item.item} for item in cart_items]
     return jsonify(output)
 
 if __name__=='__main__':
