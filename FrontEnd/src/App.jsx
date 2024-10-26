@@ -3,6 +3,11 @@ import Navbar from './components/Navbar';
 import Hero from './pages/Hero';
 import Cart from './pages/Cart';
 import ContactUs from './pages/ContactUs'; 
+import UserRegister from './pages/UserRegister';
+import AdminRegister from './pages/AdminRegister';
+import UserLogin from './pages/UserLogin';
+import AdminLogin from './pages/AdminLogin';
+
 
 function App() {
   return (
@@ -12,6 +17,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/userRegister" element={<UserRegister />} />
+          <Route path="/adminRegister" element={<AdminRegister />} />
+          <Route path="/userLogin" element={<UserLogin />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
           {/* <Route path="/contact-us" element={<ContactUs />} /> */}
         </Routes>
       </div>
