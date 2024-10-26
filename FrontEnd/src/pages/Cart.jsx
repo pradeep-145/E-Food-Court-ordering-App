@@ -15,8 +15,8 @@ const Cart = () => {
     const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
     return (
-        <div className="container mx-auto px-2 pt-20">
-            <h1 className="text-4xl font-bold mb-6">Your Cart</h1>
+        <div className="max-w-screen-md mx-auto px-2 pt-20">
+            <h1 className="text-4xl text-center mt-5 font-bold mb-6">Your Cart</h1>
 
             {cartItems.length > 0 ? (
                 <div>
@@ -42,10 +42,11 @@ const Cart = () => {
                             <h2 className="text-2xl font-bold">Total:</h2>
                             <p className="text-2xl font-bold">₹{totalPrice}</p>
                         </div>
-
+                        <div className='flex w-48 ml-60 '>
                         <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-6 w-full">
                             Proceed to Payment
                         </button>
+                        </div>
                     </div>
                 </div>
             ) : (
