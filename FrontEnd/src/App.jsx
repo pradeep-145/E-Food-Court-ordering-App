@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Cart from './components/Cart';
-import ContactUs from './components/ContactUs'; 
+import Hero from './pages/Hero';
+import Cart from './pages/Cart';
+import ContactUs from './pages/ContactUs'; 
 
 function App() {
   return (
