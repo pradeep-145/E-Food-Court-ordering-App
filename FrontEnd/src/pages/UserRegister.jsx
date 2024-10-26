@@ -51,7 +51,7 @@ const UserRegister = () => {
             const response = await axios.post('http://localhost:3000/register', { email, password });
             if (response.data.message === 'User registered successfully') {
                 notifySuccess(); // Call success toast
-                navigate('/userLogin');
+                navigate('/login');
             }
         } catch (error) {
             notifyError(error.response.data.message || 'Registration failed. Please try again.'); // Call error toast
@@ -106,7 +106,7 @@ const UserRegister = () => {
 
                     <div className="text-center">
                         <span className="text-md text-gray-800">
-                            Already have an account? <Link to="/userLogin" className="text-black hover:underline">Sign In</Link>
+                            Already have an account? <Link to="/login" className="text-black hover:underline">Sign In</Link>
                         </span>
                     </div>
                 </form>

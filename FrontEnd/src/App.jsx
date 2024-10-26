@@ -17,11 +17,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/userRegister" element={<UserRegister />} />
+          <Route path="/register" element={<UserRegister />} />
           <Route path="/adminRegister" element={<AdminRegister />} />
-          <Route path="/userLogin" element={<UserLogin />} />
+          <Route path="/login" element={<UserLogin />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
-          {/* <Route path="/contact-us" element={<ContactUs />} /> */}
+          <Route path="/contactUs" element={<ContactUs />} />
         </Routes>
       </div>
     </Router>

@@ -62,7 +62,7 @@ const UserLogin = () => {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="p-10 shadow-2xl shadow-black rounded-3xl bg-[#88baa6] border-2 border-gray-500 font-sans max-w-sm w-96">
-                <h1 className="text-4xl text-center mb-6 font-bold text-black">User Login</h1>
+                <h1 className="text-4xl text-center mb-6 font-bold text-black"> User Login</h1>
 
                 <form onSubmit={(e) => e.preventDefault()}> {/* Prevent default form submission */}
                     <div className="relative my-6">
@@ -90,14 +90,13 @@ const UserLogin = () => {
                     <button
                         className="w-full py-2 mb-4 text-xl text-white bg-black rounded-full hover:bg-[#4C7766] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#38ad7f]"
                         type="button"
-                        onClick={handleSubmit}
-                    >
+                        onClick={handleSubmit}>
                         Login
                     </button>
 
                     <div className="text-center">
                         <span className="text-md text-gray-800">
-                            New Here? <Link to="/userRegister" className="text-black hover:underline">Create an account</Link>
+                            New Here? <Link to="/register" className="text-black hover:underline">Create an account</Link>
                         </span>
                     </div>
                 </form>
