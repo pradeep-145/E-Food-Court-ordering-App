@@ -27,7 +27,7 @@ const Navbar = () => {
     };
 
     return (
-        <div id='navbar' className='flex items-center justify-between bg-white px-8 pt-2 fixed w-full '>
+        <div id='navbar' className='flex items-center justify-between bg-white px-8 pt-2 fixed w-full h-16'>
             <div className='flex flex-shrink-0 items-center text-5xl font-bold cursor-pointer mt-1'>
                 <Link to="/">
                     <img src={kec} width={24} height={24} alt="Logo" />

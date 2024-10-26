@@ -5,8 +5,8 @@ import os
 from dotenv import load_dotenv
 
 app=Flask(__name__)
-load_dotenv()
 
+load_dotenv()
 
 CORS(app)
 
