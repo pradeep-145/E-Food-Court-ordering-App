@@ -11,12 +11,12 @@ def register():
     username=data.get('username')   
     password=data.get('password')
     if not username or not password:
-        return jsonify({'message':'Invalid data!'})
+        return jsonify({'message':'Invalid data!'}),400
     else:
         new_user=user(username=username,password=password)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({'message':'User added successfully!'})
+        return jsonify({'message':'User added successfully!'}),200
 
 auth_bp.route('/login',methods=['POST'])
 def login():
@@ -24,7 +24,7 @@ def login():
     username=data.get('username')
     password=data.get('password')
     if not username or not password:
-        return jsonify({'message':'Invalid data!'})
+        return jsonify({'message':'Invalid data!'}),400
     else:
         user_data=user.query.filter_by(username=username).first()
         if user_data:
@@ -32,9 +32,9 @@ def login():
                 token=create_token(username)
                 return jsonify({'message':'Login successful!','token':token})
             else:
-                return jsonify({'message':'Invalid password!'})
+                return jsonify({'message':'Invalid password!'}),400
         else:
-            return jsonify({'message':'User not found!'})
+            return jsonify({'message':'User not found!'}),404
 
 
 
