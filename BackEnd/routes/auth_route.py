@@ -1,7 +1,6 @@
-from flask import Blueprint, request, jsonify
-from utils import db
-from models import user
-from utils import create_token
+from flask import *
+from utils import *
+from models import *
 auth_bp=Blueprint('auth',__name__)
 
 

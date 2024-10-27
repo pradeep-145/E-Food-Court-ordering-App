@@ -1,10 +1,8 @@
-from flask import Flask,request,jsonify
-from utils import db
-from flask_cors import CORS
-from models import daily_food,cart
-from routes import auth_bp
-from routes import protected_bp
-from utils import hash_password,check_password
+from flask import *
+from utils import *
+from flask_cors import *
+from models import *
+from routes import *
 import os
 from dotenv import load_dotenv
 app=Flask(__name__)
@@ -15,11 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 app.register_blueprint(auth_bp,url_prefix='/auth')
 app.register_blueprint(protected_bp,url_prefix='/protected')
-@app.route('/',methods=['GET'])
-def get_all():
-    foods=daily_food.query.all()
-    output=[{'name':food.name,'price':food.price,'type':food.type,'image':food.image} for food in foods]
-    return jsonify(output)
+
 
 @app.route('/',methods=['POST'])
 def post():
