@@ -11,6 +11,7 @@ CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MQ_SQL_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
 app.register_blueprint(auth_bp,url_prefix='/auth')
 app.register_blueprint(protected_bp,url_prefix='/protected')
 

@@ -1,1 +1,1 @@
-from .models import daily_food,cart,user
+from .models import *
