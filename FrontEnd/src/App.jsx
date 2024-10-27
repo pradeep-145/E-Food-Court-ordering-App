@@ -7,7 +7,6 @@ import UserRegister from './pages/UserRegister';
 // import AdminRegister from './pages/AdminRegister';
 import UserLogin from './pages/UserLogin';
 import AdminLogin from './pages/AdminLogin';
-import TodaySpecial from './pages/TodaySpecial';
 
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/register" element={<UserRegister />} />
-          <Route path="/todaySpecial" element={<TodaySpecial />} />
           {/* <Route path="/adminRegister" element={<AdminRegister />} /> */}
           <Route path="/login" element={<UserLogin />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
