@@ -37,3 +37,6 @@ def login():
 
 
 
+@auth_bp.route('/adminLogin',methods=['POST'])
+def admin_login():
+    data=request.get_json()
