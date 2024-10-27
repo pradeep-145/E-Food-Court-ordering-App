@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './pages/Hero';
 import Cart from './pages/Cart';
-import ContactUs from './pages/ContactUs'; 
+import ContactUs from './pages/ContactUs';
 import UserRegister from './pages/UserRegister';
 import AdminRegister from './pages/AdminRegister';
 import UserLogin from './pages/UserLogin';

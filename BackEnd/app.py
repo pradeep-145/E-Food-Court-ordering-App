@@ -1,35 +1,20 @@
 from flask import Flask,request,jsonify
-from flask_sqlalchemy import SQLAlchemy
+from utils import db
 from flask_cors import CORS
+from models import daily_food,cart
+from routes import auth_bp
+from routes import protected_bp
+from utils import hash_password,check_password
 import os
 from dotenv import load_dotenv
-
 app=Flask(__name__)
-
 load_dotenv()
-
 CORS(app)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MQ_SQL_URI')
-
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db=SQLAlchemy(app)
-
-class daily_food(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(100))
-    price=db.Column(db.Float)
-    type=db.Column(db.String(100))
-    image=db.Column(db.String(100))
-
-class cart(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    user=db.Column(db.String(150))
-    item=db.Column(db.JSON)
-
-
+db.init_app(app)
+app.register_blueprint(auth_bp,url_prefix='/auth')
+app.register_blueprint(protected_bp,url_prefix='/protected')
 @app.route('/',methods=['GET'])
 def get_all():
     foods=daily_food.query.all()

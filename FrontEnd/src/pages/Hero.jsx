@@ -5,7 +5,7 @@ const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/')
+    axios.get('http://localhost:5000/protected/')
       .then(response => {
         // Initialize quantity for each item fetched
         const updatedMenuItems = response.data.map(item => ({ ...item, quantity: 1 }));

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-import { ToastContainer,Bounce,Slide,Flip,Zoom, toast } from 'react-toastify';
+import { ToastContainer, Bounce, Slide, Flip, Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserLogin = () => {
@@ -32,33 +32,31 @@ const UserLogin = () => {
         theme: "dark",
         transition: Flip,
 
-       
+
     });
 
     const handleSubmit = async () => {
         try {
             const res = await axios.post('http://localhost:3000/login', { email, password });
-            
-            // Check for successful login message
+
             if (res.data.message === 'Success') {
                 console.log('Login Successful');
-                notifySuccess(); // Show success toast
-    
-                // Use setTimeout to delay navigation, allowing the toast to display
+                notifySuccess(); ``
+
                 setTimeout(() => {
                     localStorage.setItem('token', res.data.token);
                     navigate('/home');
-                }, 1000); // 1 second delay to allow toast display
+                }, 1000);
             } else {
                 console.log(res.message);
-                notifyError(); // Show error toast for invalid credentials
+                notifyError();
             }
         } catch (error) {
             console.error(error.response.data);
-            notifyError(); // Show error toast for request failures
+            notifyError();
         }
     };
-    
+
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="p-10 shadow-2xl shadow-black rounded-3xl bg-[#88baa6] border-2 border-gray-500 font-sans max-w-sm w-96">
