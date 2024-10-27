@@ -19,10 +19,8 @@ def create_token(username):
 def verify_token(token):
     try:
         payload=jwt.decode(token,secret_key,algorithms=['HS256'])
-        return payload
-    except jwt.ExpiredSignatureError:
-        return "Token expired!"
-    except jwt.InvalidTokenError:
-        return "Invalid token!"
+        return payload.get("username")
+    except Exception as e:
+        return "Unauthorized"
     
      
