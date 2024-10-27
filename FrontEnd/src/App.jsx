@@ -4,9 +4,10 @@ import Hero from './pages/Hero';
 import Cart from './pages/Cart';
 import ContactUs from './pages/ContactUs';
 import UserRegister from './pages/UserRegister';
-import AdminRegister from './pages/AdminRegister';
+// import AdminRegister from './pages/AdminRegister';
 import UserLogin from './pages/UserLogin';
 import AdminLogin from './pages/AdminLogin';
+import TodaySpecial from './pages/TodaySpecial';
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/register" element={<UserRegister />} />
-          <Route path="/adminRegister" element={<AdminRegister />} />
+          <Route path="/todaySpecial" element={<TodaySpecial />} />
+          {/* <Route path="/adminRegister" element={<AdminRegister />} /> */}
           <Route path="/login" element={<UserLogin />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/contactUs" element={<ContactUs />} />
