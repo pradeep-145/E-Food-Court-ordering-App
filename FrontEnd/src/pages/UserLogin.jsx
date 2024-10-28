@@ -37,14 +37,14 @@ const UserLogin = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.post('http://localhost:3000/login', { email, password });
+            const res = await axios.post('http://localhost:5000/auth/login', { username:email, password });
 
             if (res.data.message === 'Success') {
                 console.log('Login Successful');
                 notifySuccess(); ``
+                localStorage.setItem('token', res.data.token);
 
                 setTimeout(() => {
-                    localStorage.setItem('token', res.data.token);
                     navigate('/home');
                 }, 1000);
             } else {

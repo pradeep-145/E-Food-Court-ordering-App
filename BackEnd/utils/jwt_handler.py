@@ -10,10 +10,8 @@ secret_key=os.getenv('SECRET_KEY')
 def create_token(username):
     payload={
         "username":username,
-        "exp":datetime.now()+timedelta(minutes=30)
-        
+        "exp":datetime.now()+timedelta(minutes=30)   
     }
-
     token=jwt.encode(payload,secret_key,algorithm='HS256')
     return token
 

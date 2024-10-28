@@ -1,10 +1,12 @@
 from flask import *
 from utils import *
 from models import *
+
+
 auth_bp=Blueprint('auth',__name__)
 
 
-auth_bp.route('/register',methods=['GET'])
+@auth_bp.route('/register',methods=['POST'])
 def register():
     data=request.get_json()
     username=data.get('username')   
@@ -17,7 +19,7 @@ def register():
         db.session.commit()
         return jsonify({'message':'User added successfully!'}),200
 
-auth_bp.route('/login',methods=['POST'])
+@auth_bp.route('/login',methods=['POST'])
 def login():
     data=request.get_json()
     username=data.get('username')
@@ -29,7 +31,7 @@ def login():
         if user_data:
             if user_data.password==password:
                 token=create_token(username)
-                return jsonify({'message':'Login successful!','token':token})
+                return jsonify({'message':'Success','token':token})
             else:
                 return jsonify({'message':'Invalid password!'}),400
         else:

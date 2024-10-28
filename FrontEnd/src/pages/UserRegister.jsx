@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-import { ToastContainer,Flip, toast } from 'react-toastify';
+import { ToastContainer, Flip, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserRegister = () => {
@@ -48,13 +48,13 @@ const UserRegister = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3000/register', { email, password });
+            const response = await axios.post('http://localhost:5000/auth/register', { username, password });
             if (response.data.message === 'User registered successfully') {
-                notifySuccess(); // Call success toast
+                notifySuccess();
                 navigate('/login');
             }
         } catch (error) {
-            notifyError(error.response.data.message || 'Registration failed. Please try again.'); // Call error toast
+            notifyError(error.response.data.message || 'Registration failed. Please try again.');
             console.error(error.response.data);
         }
     };

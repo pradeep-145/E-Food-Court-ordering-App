@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import *
 from models import *
 from utils import *
 protected_bp=Blueprint('protected',__name__)
@@ -18,8 +18,6 @@ data=None
 #             return jsonify({'message':'Invalid token!'})
 #         else:
 #             return "Token verified!"
-
-    
 
 
 @protected_bp.route('/',methods=['GET'])
