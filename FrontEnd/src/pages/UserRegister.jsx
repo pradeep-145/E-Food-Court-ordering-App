@@ -51,11 +51,7 @@ const UserRegister = () => {
 
         try {
             const response = await axios.post('http://localhost:5000/auth/register', { username:email, password });
-<<<<<<< HEAD
             if (response.data.message === 'User added successfully!') {
-=======
-            if (response.data.message === 'User registered successfully') {
->>>>>>> ab0208e8f7b811bce88ab26dbca9270f6e969a78
                 notifySuccess();
                 navigate('/login');
             }
