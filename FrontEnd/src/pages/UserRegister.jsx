@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
-import { ToastContainer, Flip, toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Flip, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserRegister = () => {
@@ -9,7 +9,9 @@ const UserRegister = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
-
+    useEffect(()=>{
+        axios.get('http://localhost:5000/protected/')
+    })
     const notifySuccess = () => {
         toast.success('User registered successfully!', {
             position: "top-right",
@@ -48,8 +50,8 @@ const UserRegister = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/auth/register', { username, password });
-            if (response.data.message === 'User registered successfully') {
+            const response = await axios.post('http://localhost:5000/auth/register', { username:email, password });
+            if (response.data.message === 'User added successfully!') {
                 notifySuccess();
                 navigate('/login');
             }

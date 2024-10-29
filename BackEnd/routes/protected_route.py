@@ -3,22 +3,23 @@ from models import *
 from utils import *
 protected_bp=Blueprint('protected',__name__)
 data=None
-# @protected_bp.before_request
-# def check_token():
-#     global data
-#     token=None
-#     if 'Authorization' in request.headers:
-#         token=request.headers['Authorization'].split(" ")[1]
+@protected_bp.before_request
+def check_token():
+    global data
+    token=None
+    if 'Authorization' in request.headers:
+        token=request.headers['Authorization'].split(" ")[1]
 
-#     if not token:
-#         return jsonify({'message':'Token is missing!'})
-#     else:
-#         data=verify_token(token)
-#         if not data:
-#             return jsonify({'message':'Invalid token!'})
-#         else:
-#             return "Token verified!"
+    if not token:
+        return jsonify({'message':'Token is missing!'})
+    else:
+        data=verify_token(token)
+        if data=="Unauthorized" or not data:
+            return jsonify({'message':'Unauthorized'})
 
+@protected_bp.route('/verify',methods=['GET'])
+def home():
+    return jsonify({"message":"Authorized"})
 
 @protected_bp.route('/',methods=['GET'])
 def get_all():

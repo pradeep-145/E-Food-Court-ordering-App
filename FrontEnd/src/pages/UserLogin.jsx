@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, Bounce, Slide, Flip, Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -8,6 +8,24 @@ const UserLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    useEffect(()=>{
+
+        const token=localStorage.getItem('token')
+        if(token){
+            axios.get("http://localhost:5000/protected/verify",{
+                headers:{
+                    "Authorization":"Bearer "+token
+                }
+
+            }).then(res=>{
+                if(res.data.message=="Authorized")
+                {
+                    navigate('/home')
+                }
+            }).catch((err)=>console.log(err))
+        }
+        
+    })
 
     const notifySuccess = () => toast.success('Logging you in!', {
         position: "top-center",
@@ -41,7 +59,7 @@ const UserLogin = () => {
 
             if (res.data.message === 'Success') {
                 console.log('Login Successful');
-                notifySuccess(); ``
+                notifySuccess();
                 localStorage.setItem('token', res.data.token);
 
                 setTimeout(() => {
