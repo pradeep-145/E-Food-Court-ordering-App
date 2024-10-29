@@ -6,9 +6,13 @@ const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/protected/')
+    axios.get('http://localhost:5000/protected/',
+    {
+      headers:"Authorization: Bearer "+localStorage.getItem('token')
+
+    })
       .then(response => {
-        // Initialize quantity for each item fetched
+        console.log(response.data)
         const updatedMenuItems = response.data.map(item => ({ ...item, quantity: 1 }));
         setMenuItems(updatedMenuItems);
       })
