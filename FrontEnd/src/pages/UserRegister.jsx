@@ -53,7 +53,7 @@ const UserRegister = () => {
             const response = await axios.post('http://localhost:5000/auth/register', { username:email, password });
             if (response.data.message === 'User added successfully!') {
                 notifySuccess();
-                navigate('/login');
+                navigate('/');
             }
         } catch (error) {
             notifyError(error.response.data.message || 'Registration failed. Please try again.');
@@ -108,7 +108,7 @@ const UserRegister = () => {
 
                     <div className="text-center">
                         <span className="text-md text-gray-800">
-                            Already have an account? <Link to="/login" className="text-black hover:underline">Sign In</Link>
+                            Already have an account? <Link to="/" className="text-black hover:underline">Sign In</Link>
                         </span>
                     </div>
                 </form>

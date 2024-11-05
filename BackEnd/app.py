@@ -5,16 +5,20 @@ from models import *
 from routes import *
 import os
 from dotenv import load_dotenv
+
 app=Flask(__name__)
+
 load_dotenv()
+
 CORS(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MQ_SQL_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
 
 app.register_blueprint(auth_bp,url_prefix='/auth')
 app.register_blueprint(protected_bp,url_prefix='/protected')
-
 
 @app.route('/',methods=['POST'])
 def post():
@@ -59,6 +63,8 @@ def cart_update():
         updated_items = existing_items + items
         new_cart.item = updated_items  
         message = 'Cart updated successfully!'
+
+        
     else:
         new_cart = cart(user=user, item=items)  
         db.session.add(new_cart)

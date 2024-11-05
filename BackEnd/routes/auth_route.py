@@ -14,7 +14,7 @@ def register():
     if not username or not password:
         return jsonify({'message':'Invalid data!'}),400
     else:
-        new_user=user(username=username,password=password)
+        new_user=user(username=username,password=hash_password(password))
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'message':'User added successfully!'}),200
@@ -29,7 +29,8 @@ def login():
     else:
         user_data=user.query.filter_by(username=username).first()
         if user_data:
-            if user_data.password==password:
+            print(user_data.password)
+            if check_password(password,user_data.password):
                 token=create_token(username)
                 return jsonify({'message':'Success','token':token})
             else:
