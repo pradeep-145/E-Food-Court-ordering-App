@@ -14,7 +14,7 @@ const Navbar = () => {
         <div id='navbar' className='flex items-center justify-between bg-[#bce0ce] bg-opacity-30 font-sans font-semibold backdrop-blur-md px-8 pt-2 fixed w-full h-16 shadow-lg'>
            <div className='flex justify-between'>
              <div className='flex flex-shrink-0 items-center text-5xl font-bold cursor-pointer mt-1'>
-                <Link to="/">
+                <Link to="/home">
                     <img src={kec} width={24} height={24} alt="Logo" />
                 </Link>
                 <h2 className='text-4xl font-bold font-serif px-10 text-gray-800'>
@@ -39,7 +39,7 @@ const Navbar = () => {
             {isOpen && (
                 <div className='lg:flex items-center justify-center gap-2.5 text-xl cursor-pointer flex flex-col absolute top-6 right-0 shadow-lg rounded-2xl py-4 px-7 lg:flex-row bg-blue-500 bg-opacity-30 backdrop-blur-md'>
                     <div>
-                        <Link to="/" onClick={() => setIsOpen(false)} className='text-gray-800'>Home</Link>
+                        <Link to="/home" onClick={() => setIsOpen(false)} className='text-gray-800'>Home</Link>
                     </div>
                     <div>
                         <Link to="/cart" onClick={() => setIsOpen(false)} className='text-gray-800'>Cart</Link>
@@ -52,7 +52,7 @@ const Navbar = () => {
 
             <div className='hidden lg:flex items-center justify-center gap-9 text-xl cursor-pointer'>
                 <div>
-                    <Link to="/" onClick={() => setIsOpen(false)} className='text-gray-800'>Home</Link>
+                    <Link to="/home" onClick={() => setIsOpen(false)} className='text-gray-800'>Home</Link>
                 </div>
                 <div>
                     <Link to="/cart" onClick={() => setIsOpen(false)} className='text-gray-800'>Cart</Link>
