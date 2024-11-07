@@ -9,8 +9,8 @@ const UserLogin = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     useEffect(()=>{
-
         const token=localStorage.getItem('token')
+
         if(token){
             axios.get("http://localhost:5000/protected/verify",{
                 headers:{
@@ -61,6 +61,7 @@ const UserLogin = () => {
                 console.log('Login Successful');
                 notifySuccess();
                 localStorage.setItem('token', res.data.token);
+                
 
                 setTimeout(() => {
                     navigate('/home');
@@ -83,7 +84,7 @@ const UserLogin = () => {
                 <form onSubmit={(e) => e.preventDefault()}> {/* Prevent default form submission */}
                     <div className="relative my-6">
                         <input
-                            type="email"
+                            type="text"
                             name="email"
                             id="email"
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"

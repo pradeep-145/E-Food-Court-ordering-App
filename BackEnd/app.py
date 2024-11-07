@@ -1,11 +1,12 @@
 from flask import *
 from utils import *
+import logging
 from flask_cors import *
 from models import *
 from routes import *
 import os
 from dotenv import load_dotenv
-
+logging.basicConfig(level=logging.INFO)
 app=Flask(__name__)
 
 load_dotenv()

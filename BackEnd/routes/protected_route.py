@@ -19,7 +19,7 @@ def check_token():
 
 @protected_bp.route('/verify',methods=['GET'])
 def home():
-    return jsonify({"message":"Authorized"})
+    return jsonify({"message":"Authorized","username":data})
 
 @protected_bp.route('/',methods=['GET'])
 def get_all():
@@ -39,8 +39,7 @@ def cart_update():
     new_cart = cart.query.filter_by(user=user).first()
 
     if new_cart:
-        existing_items = new_cart.item  
-        updated_items = existing_items + items
+        updated_items = items
         new_cart.item = updated_items  
         message = 'Cart updated successfully!'
     else:
@@ -50,11 +49,9 @@ def cart_update():
     db.session.commit()
     return jsonify({'message': message})
 
-@protected_bp.route('/cart',methods=['GET'])
-def get_cart():
-    data=request.get_json()
-    try:
-        output=cart.query.filter_by(username=data.get('username')).first()
-        return jsonify(output)
-    except Exception as e:
-        return "No items in cart"
+@protected_bp.route('/cart/<username>',methods=['GET'])
+def get_cart(username):
+    current_app.logger.info("hello %s",username)
+    cart_items=cart.query.filter_by(user=username).all()
+    output=[{'user':item.user,'items':item.item} for item in cart_items]
+    return jsonify(output)

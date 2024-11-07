@@ -1,14 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './pages/Hero';
+import AdminLogin from './pages/AdminLogin';
 import Cart from './pages/Cart';
 import ContactUs from './pages/ContactUs';
-import UserRegister from './pages/UserRegister';
+import Hero from './pages/Hero';
 import UserLogin from './pages/UserLogin';
-import AdminLogin from './pages/AdminLogin';
-
+import UserRegister from './pages/UserRegister';
+import axios from 'axios';
 function App() {
-  return (
+    
+    return (
     <Router>
       <div>
         <Navbar />

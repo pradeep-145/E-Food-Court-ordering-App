@@ -68,7 +68,7 @@ const UserRegister = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="relative my-6">
                         <input
-                            type="email"
+                            type="text"
                             name="email"
                             id="email"
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"

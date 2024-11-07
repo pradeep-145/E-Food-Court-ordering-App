@@ -1,14 +1,53 @@
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 const Cart = () => {
     const [cartItems, setCartItems] = useState([
-        { name: "Chicken Biryani", price: 120, quantity: 2 },
-        { name: "Paneer Butter Masala", price: 100, quantity: 1 },
-        { name: "Parotta", price: 18, quantity: 5 }
+        
     ]);
+    const username=localStorage.getItem('username');
+    const token=localStorage.getItem('token');
+    if(token==null){
+        window.location.href='/login';
+    }
+    
+    useEffect(() => {
+        if (username) { 
+            axios.get(`http://localhost:5000/protected/cart/${username}`, {
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                }
+              })
+              .then((response) => {
+                setCartItems(response.data[0]?.items || []); // Fallback to empty array if no items
+              })
+              .catch((error) => {
+                console.error("Error fetching data:", error);
+              });
+        } else {
+            console.warn("Username is missing or undefined.");
+        }
+    }, [username]);
+    
+    
 
     const removeFromCart = (index) => {
         const updatedCart = cartItems.filter((item, itemIndex) => itemIndex !== index);
+        axios.post('http://localhost:5000/protected/cart',{
+            'username':username,
+            'items':updatedCart
+        },{
+            "headers": {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then((response)=>{
+            console.log(response);
+
+        }
+        ).catch((err)=>{
+            console.log(err);
+        }
+        )
+
         setCartItems(updatedCart);
     };
 

@@ -12,7 +12,6 @@ const Hero = () => {
 
     })
       .then(response => {
-        console.log(response.data)
         const updatedMenuItems = response.data.map(item => ({ ...item, quantity: 1 }));
         setMenuItems(updatedMenuItems);
       })
@@ -20,12 +19,31 @@ const Hero = () => {
         console.error('Error fetching menu items:', error);
       });
   }, []);
+  useEffect(()=>{
+    const token=localStorage.getItem('token')
+    const username=localStorage.getItem('username')
+    if(token){
+      axios.get('http://localhost:5000/protected/verify',{
+        "headers": {
+          'Authorization': `Bearer ${token}`,
+        }
+      }).then((response)=>{
+        if(response.data.message=="Authorized"&&!username){
+          localStorage.setItem('username',response.data.username)
+        }
+      }
+      ).catch((error)=>{
+        console.error('Error:', error)
+        
+      }
 
+      )
+    }
+},[])
   const handleAddToCart = (item) => {
     axios.post('http://localhost:5000/cart', {
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity
+      user:localStorage.getItem('username'),
+      item: item,
     });
   };
 
@@ -90,7 +108,7 @@ const Hero = () => {
             <div className="flex items-center justify-between mt-4">
             <button 
               onClick={() => handleAddToCart(item)}
-              className="bg-[#43B3AE] hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2 px-4 rounded mt-4 transition duration-200">              Add to Cart
+              className="bg-[#43B3AE] hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2 px-4 rounded mt-4 transition duration-200"  >              Add to Cart
             </button>
             <button onClick={()=>handleBuyNow(item)} className="bg-[#43B3AE] hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2 px-4 rounded mt-4 transition duration-200">
               Buy Now

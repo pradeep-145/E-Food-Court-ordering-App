@@ -60,6 +60,13 @@ const Navbar = () => {
                 <div>
                     <Link to="/contactUs" onClick={() => setIsOpen(false)} className='text-gray-800'>Contact Us</Link>
                 </div>
+                <div>
+                    <Link to="/" onClick={() => {
+                        setIsOpen(false)
+                        localStorage.removeItem('token')
+                        localStorage.removeItem('username')
+                        }} className='text-gray-800'>Logout</Link>
+                </div>
             </div>
         </div>
     );
