@@ -31,8 +31,29 @@ def get_all():
 def cart_update():
     data = request.get_json()
     user = data.get('user')
-    items = data.get('items')
-    
+    items = data.get('item')
+    current_app.logger.info(request.get_json())
+    if not user or not items:
+        return jsonify({'message': 'Invalid data!'})
+
+    new_cart = cart.query.filter_by(user=user).first()
+
+    if new_cart:
+        existing_items = new_cart.item
+        updated_items = existing_items+items
+        new_cart.item = updated_items
+        message = 'Cart updated successfully!'
+    else:
+        new_cart = cart(user=user, item=items)
+        db.session.add(new_cart)
+        message = 'All items added to cart successfully!'
+    db.session.commit()
+    return jsonify({'message': message})
+@protected_bp.route('/cart/remove', methods=['POST'])
+def cart_remove():
+    data = request.get_json()
+    user = data.get('user')
+    items = data.get('item')
     if not user or not items:
         return jsonify({'message': 'Invalid data!'})
 
@@ -40,12 +61,10 @@ def cart_update():
 
     if new_cart:
         updated_items = items
-        new_cart.item = updated_items  
+        new_cart.item = updated_items
         message = 'Cart updated successfully!'
     else:
-        new_cart = cart(user=user, item=items)  
-        db.session.add(new_cart)
-        message = 'All items added to cart successfully!'
+        message='user not found'
     db.session.commit()
     return jsonify({'message': message})
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "../App.css";
-
+import Navbar from '../components/Navbar';
 const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
 
@@ -41,11 +41,34 @@ const Hero = () => {
     }
 },[])
   const handleAddToCart = (item) => {
-    axios.post('http://localhost:5000/cart', {
-      user:localStorage.getItem('username'),
-      item: item,
+    console.log(item)
+    axios.post(
+      'http://localhost:5000/protected/cart', 
+      {  // This is the request body
+        user: localStorage.getItem('username'),
+        item: [
+          {
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity
+          }
+        ]
+      },
+      {  // This is the configuration object with headers
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+      }
+    )
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.error('Error:', error);
     });
-  };
+    
+    };
 
   const handleQuantityChange = (id, increment) => {
     const updatedItems = menuItems.map(item => {
@@ -58,6 +81,9 @@ const Hero = () => {
   };
 
   return (
+    <>
+    <Navbar />
+
     <div className='bg-white'>
       <div>
         <h1 className='text-4xl font-bold font-revellia px-10 pt-24'>
@@ -100,7 +126,7 @@ const Hero = () => {
               src={item.image} 
               alt={item.name} 
               className='w-full rounded-lg h-48'           
-            />
+              />
             <h3 className="text-2xl font-bold mt-4">{item.name}</h3>
             <p className="text-lg mt-2">{item.type}</p>
               <p>Price: ₹{item.price}</p>
@@ -119,6 +145,7 @@ const Hero = () => {
       </div>
     </div>
     </div>
+              </>
   );
 };
 

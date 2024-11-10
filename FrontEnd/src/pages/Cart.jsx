@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
 const Cart = () => {
     const [cartItems, setCartItems] = useState([
         
@@ -32,9 +33,9 @@ const Cart = () => {
 
     const removeFromCart = (index) => {
         const updatedCart = cartItems.filter((item, itemIndex) => itemIndex !== index);
-        axios.post('http://localhost:5000/protected/cart',{
-            'username':username,
-            'items':updatedCart
+        axios.post('http://localhost:5000/protected/cart/remove',{
+            'user':username,
+            'item':updatedCart
         },{
             "headers": {
                 'Authorization': `Bearer ${token}`
@@ -48,12 +49,14 @@ const Cart = () => {
         }
         )
 
-        setCartItems(updatedCart);
+        setCartItems(updatedCart);          
     };
 
     const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
     return (
+        <>
+        <Navbar />
         <div className="max-w-screen-md mx-auto px-2 pt-20">
             <h1 className="text-4xl text-center mt-5 font-bold mb-6">Your Cart</h1>
 
@@ -92,6 +95,7 @@ const Cart = () => {
                 <p className="text-lg text-gray-500">Your cart is empty.</p>
             )}
         </div>
+                    </>
     );
 };
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import AdminLogin from './pages/AdminLogin';
+import AdminLogin from './pages/Admin/AdminLogin';
 import Cart from './pages/Cart';
 import ContactUs from './pages/ContactUs';
 import Hero from './pages/Hero';
