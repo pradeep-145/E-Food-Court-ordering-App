@@ -18,4 +18,10 @@ class user(db.Model):
     username=db.Column(db.String(150),unique=True)
     password=db.Column(db.String(200))
 
+class special(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(100))
+    price=db.Column(db.Float)
+    type=db.Column(db.String(100))
+    image=db.Column(db.String(100))
     

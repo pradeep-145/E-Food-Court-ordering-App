@@ -1,7 +1,9 @@
 from flask import *
 from utils import *
 from models import *
-
+import os;
+from dotenv import load_dotenv
+load_dotenv()
 
 auth_bp=Blueprint('auth',__name__)
 
@@ -43,3 +45,10 @@ def login():
 @auth_bp.route('/adminLogin',methods=['POST'])
 def admin_login():
     data=request.get_json()
+    username=data.get('username')
+    password=data.get('password')
+    if username==os.getenv('ADMIN_USERNAME') and password==os.getenv('ADMIN_PASSWORD'):
+        token=create_token(username)
+        return jsonify({'message':'Success','token':token})
+    else:
+        return jsonify({'message':'Invalid credentials!'}),400
