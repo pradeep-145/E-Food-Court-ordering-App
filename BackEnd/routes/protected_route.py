@@ -24,7 +24,7 @@ def home():
 @protected_bp.route('/',methods=['GET'])
 def get_all():
     foods=daily_food.query.all()
-    output=[{'name':food.name,'price':food.price,'type':food.type,'image':food.image} for food in foods]
+    output=[{'name':food.name,'price':food.price,'type':food.type,'image':food.image,'quantity':food.quantity} for food in foods]
     return jsonify(output)
 
 @protected_bp.route('/cart', methods=['POST'])

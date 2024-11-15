@@ -5,6 +5,9 @@ from flask_cors import *
 from models import *
 from routes import *
 import os
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
+from datetime import datetime
 from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO)
 app=Flask(__name__)
@@ -17,6 +20,25 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MQ_SQL_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+
+
+# def delete_rows():
+#     data=daily_food.query.filter_by(name='Chicken Biryani').first()
+#     data.quantity=0
+#     with app.app_context():
+#         db.session.query(special).delete()
+#         db.session.commit()
+#     print('All rows deleted successfully on ', datetime.now())
+
+# def setup_scheduler():
+#     scheduler = BackgroundScheduler()
+#     scheduler.add_job(delete_rows, CronTrigger(hour=0, minute=0, second=0))
+#     scheduler.start()
+
+# @app.before_first_request
+# def before_first_request():
+#     setup_scheduler()
+
 
 app.register_blueprint(auth_bp,url_prefix='/auth')
 app.register_blueprint(protected_bp,url_prefix='/protected')

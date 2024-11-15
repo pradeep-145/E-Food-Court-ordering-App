@@ -4,7 +4,7 @@ import "../App.css";
 import Navbar from '../components/Navbar';
 const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
-
+  
   useEffect(() => {
     axios.get('http://localhost:5000/protected/',
     {
@@ -12,8 +12,9 @@ const Hero = () => {
 
     })
       .then(response => {
-        const updatedMenuItems = response.data.map(item => ({ ...item, quantity: 1 }));
+        const updatedMenuItems = response.data.map(item => ({ ...item }));
         setMenuItems(updatedMenuItems);
+        console.log(menuItems)
       })
       .catch(error => {
         console.error('Error fetching menu items:', error);
@@ -128,6 +129,9 @@ const Hero = () => {
               className='w-full rounded-lg h-48'           
               />
             <h3 className="text-2xl font-bold mt-4">{item.name}</h3>
+            {item.quantity&&
+            <p>{item.quantity}</p>
+            }
             <p className="text-lg mt-2">{item.type}</p>
               <p>Price: ₹{item.price}</p>
               
