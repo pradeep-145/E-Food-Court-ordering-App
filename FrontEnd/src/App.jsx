@@ -7,6 +7,7 @@ import ContactUs from './pages/ContactUs';
 import Hero from './pages/Hero';
 import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
+import Home from './pages/Admin/Home';
 import axios from 'axios';
 function App() {
     
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<UserLogin />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/contactUs" element={<ContactUs />} />
+          <Route path='/admin' element={<Home />} />
         </Routes>
       </div>
     </Router>

@@ -7,6 +7,7 @@ class daily_food(db.Model):
     price=db.Column(db.Float)
     type=db.Column(db.String(100))
     image=db.Column(db.String(100))
+    quantity=db.Column(db.Integer)
 
 class cart(db.Model):
     id=db.Column(db.Integer,primary_key=True)
