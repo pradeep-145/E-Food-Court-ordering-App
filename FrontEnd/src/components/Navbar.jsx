@@ -29,7 +29,7 @@ const Navbar = () => {
             className="rounded-full p-2 w-full focus:ring-2 focus:ring-[#4C7766] focus:outline-none"
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button type="submit" className="absolute bg-[#4C7766] text-gray-800 px-2 mr-1 rounded-full py-1">
+          <button type="submit" className="absolute bg-black font-bold text-white px-2 mr-1 rounded-full py-1">
             <HiOutlineSearch className='h-6' />
           </button>
         </form>
