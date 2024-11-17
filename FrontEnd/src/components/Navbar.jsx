@@ -11,7 +11,7 @@ const Navbar = () => {
     };
 
     return (
-        <div id='navbar' className='flex items-center justify-between bg-slate-400 bg-opacity-30 font-sans font-semibold backdrop-blur-md px-8 pt-2 fixed w-full h-16 shadow-lg'>
+        <div id='navbar' className='flex items-center justify-between bg-teal-100 bg-opacity-30 font-sans font-semibold backdrop-blur-md px-8 pt-2 fixed w-full h-16 shadow-lg'>
            <div className='flex justify-between'>
              <div className='flex flex-shrink-0 items-center text-5xl font-bold cursor-pointer mt-1'>
                 <Link to="/home">

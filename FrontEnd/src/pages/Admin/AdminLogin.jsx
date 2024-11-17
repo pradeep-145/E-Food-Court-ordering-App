@@ -95,11 +95,11 @@ const AdminLogin = () => {
                         Login
                     </button>
 
-                    <div className="text-center">
+                    {/* <div className="text-center">
                         <span className="text-md text-gray-800">
                             New Here? <Link to="/adminRegister" className="text-black hover:underline">Create an account</Link>
                         </span>
-                    </div>
+                    </div> */}
                 </form>
             </div>
             <ToastContainer /> {/* Ensure the ToastContainer is included here */}
