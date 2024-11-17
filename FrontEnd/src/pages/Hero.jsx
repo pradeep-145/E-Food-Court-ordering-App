@@ -45,7 +45,7 @@ const Hero = () => {
     console.log(item)
     axios.post(
       'http://localhost:5000/protected/cart', 
-      {  // This is the request body
+      {  
         user: localStorage.getItem('username'),
         item: [
           {
@@ -56,7 +56,7 @@ const Hero = () => {
           }
         ]
       },
-      {  // This is the configuration object with headers
+      { 
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         }
@@ -103,7 +103,7 @@ const Hero = () => {
               <p  className="text-2xl mt-3 font-bold">Price: ₹{item.price}</p>
               </div>
               <div className="flex items-center justify-between mt-2">
-                <button 
+                <button
                   onClick={() => handleAddToCart(item)}
                   className="bg-gray-600 hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2  px-4 rounded mt-4 transition duration-200">
                   Add to Cart
@@ -140,7 +140,9 @@ const Hero = () => {
               onClick={() => handleAddToCart(item)}
               className="bg-[#43B3AE] hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2 px-4 rounded mt-4 transition duration-200"  >              Add to Cart
             </button>
-            <button onClick={()=>handleBuyNow(item)} className="bg-[#43B3AE] hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2 px-4 rounded mt-4 transition duration-200">
+            <button 
+            onClick={()=>handleBuyNow(item)} 
+            className="bg-[#43B3AE] hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400  font-bold py-2 px-4 rounded mt-4 transition duration-200">
               Buy Now
               </button>
             </div>

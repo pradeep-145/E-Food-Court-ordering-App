@@ -47,3 +47,22 @@ def update_food():
         return jsonify({'message': 'Item updated successfully!'})
     else:
         return jsonify({'message': 'Item not found!'}), 404
+    
+@admin_bp.route('/orders',methods=['GET'])
+def orderList():
+    data=orderList.query.all()
+    orders=[]
+    for i in data:
+        orders.append(i.orders)
+    return jsonify({'orders':orders})
+
+
+
+@admin_bp.route('/history',methods=['GET'])
+def orderHistory():
+    data=orderHistory.query.all()
+    orders=[]
+    for i in data:
+        orders.append(i.orders)
+    return jsonify({'orders':orders})
+
