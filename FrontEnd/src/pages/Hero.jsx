@@ -4,7 +4,7 @@ import "../App.css";
 import Navbar from '../components/Navbar';
 const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
-  
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     axios.get('http://localhost:5000/protected/',
     {
@@ -45,7 +45,7 @@ const Hero = () => {
     console.log(item)
     axios.post(
       'http://localhost:5000/protected/cart', 
-      {  // This is the request body
+      {
         user: localStorage.getItem('username'),
         item: [
           {
@@ -56,7 +56,7 @@ const Hero = () => {
           }
         ]
       },
-      {  // This is the configuration object with headers
+      {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         }
@@ -148,6 +148,10 @@ const Hero = () => {
         ))}
       </div>
     </div>
+    </div>
+    <div className='absolute'>
+
+
     </div>
               </>
   );

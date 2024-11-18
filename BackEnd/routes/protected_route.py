@@ -21,6 +21,17 @@ def check_token():
 def home():
     return jsonify({"message":"Authorized","username":data})
 
+
+
+@protected_bp.route('/',methods=['PUT'])
+def update_food():
+    data = request.get_json()
+    food = daily_food.query.filter_by(name='Chicken Biryani').first()
+    if food:
+        food.quantity = data['quantity']
+        db.session.commit()
+    return jsonify({'message': 'Items updated successfully!'})
+
 @protected_bp.route('/',methods=['GET'])
 def get_all():
     foods=daily_food.query.all()

@@ -19,7 +19,7 @@ const Cart = () => {
                 }
               })
               .then((response) => {
-                setCartItems(response.data[0]?.items || []); // Fallback to empty array if no items
+                setCartItems(response.data[0]?.items || []);
               })
               .catch((error) => {
                 console.error("Error fetching data:", error);

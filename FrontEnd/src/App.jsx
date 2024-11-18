@@ -9,12 +9,14 @@ import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
 import Home from './pages/Admin/Home';
 import axios from 'axios';
+import OrderHistory from './pages/Admin/OrderHistory';
+import OrderList from './pages/Admin/OrderList';
 function App() {
     
     return (
     <Router>
       <div>
-        <Navbar />
+        
         <Routes>
           <Route path="/home" element={<Hero />} />
           <Route path="/cart" element={<Cart />} />
@@ -23,6 +25,8 @@ function App() {
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path='/admin' element={<Home />} />
+          <Route path='/orderHistory' element={<OrderHistory />} />
+          <Route path='/orderList' element={<OrderList />} />
         </Routes>
       </div>
     </Router>
