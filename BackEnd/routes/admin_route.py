@@ -24,21 +24,8 @@ admin_bp=Blueprint('admin',__name__)
 def add_food():
     data = request.get_json()
 
-    # Validate required fields
-    required_fields = ['name', 'price', 'type', 'image']
-    missing_fields = [field for field in required_fields if field not in data]
-
-    if missing_fields:
-        return jsonify({'error': f"Missing fields: {', '.join(missing_fields)}"}), 400
-
     try:
-        # Create a new food entry
-        new_food = daily_food(
-            name=data['name'],
-            price=float(data['price']),  # Ensure price is a float
-            type=data['type'],
-            image=data['image']
-        )
+        new_food=special( items=data['items'])
         db.session.add(new_food)
         db.session.commit()
 
@@ -64,17 +51,22 @@ def update_food():
     
 @admin_bp.route('/orders',methods=['GET'])
 def orderList():
-    data=orderList.query.all()
-    orders=[]
+    data = order_list.query.all()
+    orders = []  # Initialize as a list to store the orders
     for i in data:
-        orders.append(i.orders)
-    return jsonify({'orders':orders})
+        order = {
+            'id': i.id,
+            'order': i.orders  # Assuming 'order' is a JSON field, you may need to convert it to a dictionary
+        }
+        orders.append(order)  # Append the formatted order to the list
+
+    return jsonify({'orders': orders, 'success': True})
 
 
 
 @admin_bp.route('/history',methods=['GET'])
 def orderHistory():
-    data=orderHistory.query.all()
+    data=order_history.query.all()
     orders=[]
     for i in data:
         orders.append(i.orders)

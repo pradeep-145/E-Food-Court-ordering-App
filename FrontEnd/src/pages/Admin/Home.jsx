@@ -19,8 +19,9 @@ const AdminPage = () => {
     { id: 10, name: 'Aloo Paratha', price: 7.49, type: 'Veg', image: 'https://via.placeholder.com/100x100?text=Aloo+Paratha' },
   ];
   const handleSave = () => {
+    console.log(selectedItems)
       axios.post('http://localhost:5000/admin/add',{
-        selectedItems
+        items:selectedItems
     }).then((response)=>{
         console.log(response);
     }
@@ -31,6 +32,10 @@ const AdminPage = () => {
 
       axios.put('http://localhost:5000/protected/',{
         'quantity':biryani
+      },{
+        headers:[
+          'Authorization: Bearer '+localStorage.getItem('token')
+        ]
       }).then((response)=>{
           console.log(response);
       }
@@ -41,7 +46,7 @@ const AdminPage = () => {
   }
   return (
     <>
-      <section className="w-screen h-screen p-20 px-40">
+      <section className="w-screen h-screen p-20 px-40" >
         <div className="border-2 w-full h-full rounded-lg p-4">
           <select onChange={(item)=>{
              const selectedItem = specialItems.find((item) => item.name === event.target.value);

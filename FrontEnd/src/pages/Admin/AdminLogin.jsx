@@ -37,16 +37,16 @@ const AdminLogin = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.post('http://localhost:3000/login', { email, password });
+            const res = await axios.post('http://localhost:5000/admin/login', { email, password });
             
             // Check for successful login message
             if (res.data.message === 'Success') {
                 console.log('Login Successful');
                 notifySuccess(); // Show success toast
     
-                // Use setTimeout to delay navigation, allowing the toast to display
+                
                 setTimeout(() => {
-                    localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('admin_token', res.data.token);
                     navigate('/home');
                 }, 1000); // 1 second delay to allow toast display
             } else {
