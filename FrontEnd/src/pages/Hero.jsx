@@ -4,7 +4,7 @@ import "../App.css";
 import Navbar from '../components/Navbar';
 const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
-  
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     axios.get('http://localhost:5000/protected/',
     {
@@ -150,6 +150,10 @@ const Hero = () => {
         ))}
       </div>
     </div>
+    </div>
+    <div className='absolute'>
+
+
     </div>
               </>
   );

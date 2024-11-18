@@ -7,31 +7,32 @@ load_dotenv()
 
 
 admin_bp=Blueprint('admin',__name__)
-@admin_bp.before_request
-def check_token():
-    token=None
-    if 'Authorization' in request.headers:
-        token=request.headers['Authorization'].split(" ")[1]
+# @admin_bp.before_request
+# def check_token():
+#     token=None
+#     if 'Authorization' in request.headers:
+#         token=request.headers['Authorization'].split(" ")[1]
 
-    if not token:
-        return jsonify({'message':'Token is missing!'})
-    else:
-        data=verify_token(token)
-        if data=="Unauthorized" or not data:
-            return jsonify({'message':'Unauthorized'})
+#     if not token:
+#         return jsonify({'message':'Token is missing!'})
+#     else:
+#         data=verify_token(token)
+#         if data=="Unauthorized" or not data:
+#             return jsonify({'message':'Unauthorized'})
 
-@admin_bp.route('/add',methods=['POST'])
+@admin_bp.route('/add', methods=['POST'])
 def add_food():
     data = request.get_json()
-    new_food = daily_food(
-        name=data['name'],
-        price=data['price'],
-        type=data['type'],
-        image=data['image']
-    )
-    db.session.add(new_food)
-    db.session.commit()
-    return jsonify({'message': 'Item added successfully!'})
+
+    try:
+        new_food=special( items=data['items'])
+        db.session.add(new_food)
+        db.session.commit()
+
+        return jsonify({'message': 'Item added successfully!'}), 201
+    except Exception as e:
+        db.session.rollback()  # Rollback in case of an error
+        return jsonify({'error': 'Failed to add item', 'details': str(e)}), 500
 
 
 @admin_bp.route('/update',methods=['PUT'])
@@ -50,17 +51,22 @@ def update_food():
     
 @admin_bp.route('/orders',methods=['GET'])
 def orderList():
-    data=orderList.query.all()
-    orders=[]
+    data = order_list.query.all()
+    orders = []  # Initialize as a list to store the orders
     for i in data:
-        orders.append(i.orders)
-    return jsonify({'orders':orders})
+        order = {
+            'id': i.id,
+            'order': i.orders  # Assuming 'order' is a JSON field, you may need to convert it to a dictionary
+        }
+        orders.append(order)  # Append the formatted order to the list
+
+    return jsonify({'orders': orders, 'success': True})
 
 
 
 @admin_bp.route('/history',methods=['GET'])
 def orderHistory():
-    data=orderHistory.query.all()
+    data=order_history.query.all()
     orders=[]
     for i in data:
         orders.append(i.orders)

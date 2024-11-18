@@ -10,49 +10,25 @@ import UserRegister from './pages/UserRegister';
 import Home from './pages/Admin/Home';
 import Welcome from './components/welcome';
 import axios from 'axios';
-import bg from './assets/hd.png'
-
+import OrderHistory from './pages/Admin/OrderHistory';
+import OrderList from './pages/Admin/OrderList';
 function App() {
     return (
     <Router>
-      <Routes>
-      <Route path="/" element={
-        <div style={{ backgroundImage: `url(${bg})`,
-         backgroundSize: 'cover', backgroundPosition:'center',
-         backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
-          minHeight: '100vh', width:'100%', height:'100%'}}>
-        <Welcome />
-        </div>
-      } />
-      <Route path="/home" element={<Hero />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/register" element={
-        <div style={{ backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover', backgroundPosition:'center',
-        backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
-         minHeight: '100vh', width:'100%', height:'100%'}}>
-        <UserRegister />
-        </div>
-      } />
-      <Route path="/userLogin" element={
-        <div style={{ backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover', backgroundPosition:'center',
-        backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
-         minHeight: '100vh', width:'100%', height:'100%'}}>
-        <UserLogin />
-        </div>
-        } />
-      <Route path="/adminLogin" element={
-        <div style={{ backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover', backgroundPosition:'center',
-        backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
-         minHeight: '100vh', width:'100%', height:'100%'}}>
-        <AdminLogin />
-        </div>
-        } />
-      <Route path="/contactUs" element={<ContactUs />} />
-      <Route path='/admin' element={<Home />} />
-      </Routes>
+      <div>
+        
+        <Routes>
+          <Route path="/home" element={<Hero />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/register" element={<UserRegister />} />
+          <Route path="/" element={<UserLogin />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+          <Route path='/admin' element={<Home />} />
+          <Route path='/orderHistory' element={<OrderHistory />} />
+          <Route path='/orderList' element={<OrderList />} />
+        </Routes>
+      </div>
     </Router>
     );
 }

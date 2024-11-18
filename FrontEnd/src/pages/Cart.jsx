@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 const Cart = () => {
     const [cartItems, setCartItems] = useState([
         
     ]);
     const username=localStorage.getItem('username');
     const token=localStorage.getItem('token');
+    const navigate=useNavigate()
     if(token==null){
         window.location.href='/login';
     }
@@ -19,7 +21,7 @@ const Cart = () => {
                 }
               })
               .then((response) => {
-                setCartItems(response.data[0]?.items || []); // Fallback to empty array if no items
+                setCartItems(response.data[0]?.items || []);
               })
               .catch((error) => {
                 console.error("Error fetching data:", error);
@@ -29,6 +31,37 @@ const Cart = () => {
         }
     }, [username]);
     
+    const handlePayment = async () => {
+        const response=await axios.post('http://localhost:5000/protected/checkout', {
+           
+            'user':username,
+            'items':cartItems
+        },{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            } ,
+        })
+        console.log(response.data)
+        if(response.data.success){
+            const order=await axios.post('http://localhost:5000/protected/orderlist', {
+                
+                orders:cartItems
+            },{
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                } ,
+            })
+            console.log(order)
+            if(order.data.success){
+                console.log('Order placed successfully');
+                navigate('/token')
+                setCartItems([]);
+            }
+        }else{
+            console.log('Payment failed');
+        }
+
+    }
     
 
     const removeFromCart = (index) => {
@@ -85,7 +118,7 @@ const Cart = () => {
                             <p className="text-2xl font-bold">₹{totalPrice}</p>
                         </div>
                         <div className='flex w-48 ml-60 '>
-                        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-6 w-full">
+                        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-6 w-full" onClick={handlePayment}>
                             Proceed to Payment
                         </button>
                         </div>

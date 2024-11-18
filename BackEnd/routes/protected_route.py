@@ -7,6 +7,7 @@ data=None
 def check_token():
     global data
     token=None
+
     if 'Authorization' in request.headers:
         token=request.headers['Authorization'].split(" ")[1]
 
@@ -20,6 +21,17 @@ def check_token():
 @protected_bp.route('/verify',methods=['GET'])
 def home():
     return jsonify({"message":"Authorized","username":data})
+
+
+
+@protected_bp.route('/',methods=['PUT'])
+def update_food():
+    data = request.get_json()
+    food = daily_food.query.filter_by(name='Chicken Biryani').first()
+    if food:
+        food.quantity = data['quantity']
+        db.session.commit()
+    return jsonify({'message': 'Items updated successfully!'})
 
 @protected_bp.route('/',methods=['GET'])
 def get_all():
@@ -74,3 +86,18 @@ def get_cart(username):
     cart_items=cart.query.filter_by(user=username).all()
     output=[{'user':item.user,'items':item.item} for item in cart_items]
     return jsonify(output)
+
+
+@protected_bp.route('/checkout',methods=['POST'])
+def checkout():
+    return jsonify({'success':True})
+
+
+@protected_bp.route('/orderlist',methods=['POST'])
+def orderlist():
+    data=request.get_json()
+    orders=data.get('orders')
+    new_order=order_list(orders=orders)
+    db.session.add(new_order)
+    db.session.commit()
+    return jsonify({'message':'Order placed successfully!','success':True})
