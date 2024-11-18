@@ -11,6 +11,7 @@ import Home from './pages/Admin/Home';
 import Welcome from './components/welcome';
 import axios from 'axios';
 import bg from './assets/hd.png'
+import contactbg from './assets/bg.png'
 
 function App() {
     return (
@@ -50,7 +51,14 @@ function App() {
         <AdminLogin />
         </div>
         } />
-      <Route path="/contactUs" element={<ContactUs />} />
+      <Route path="/contactUs" element={
+        <div style={{ backgroundImage: `url(${contactbg})`,
+        backgroundSize: 'cover', backgroundPosition:'center',
+        backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
+         minHeight: '100vh', width:'100%', height:'100%'}}>
+         <ContactUs />
+        </div>
+      } />
       <Route path='/admin' element={<Home />} />
       </Routes>
     </Router>
