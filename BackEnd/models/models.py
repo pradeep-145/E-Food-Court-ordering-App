@@ -25,4 +25,14 @@ class special(db.Model):
     price=db.Column(db.Float)
     type=db.Column(db.String(100))
     image=db.Column(db.String(100))
+
+
+class orderList(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    orders=db.Column(db.JSON)
+
+
+class orderHistory(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    orders=db.Column(db.JSON)
     
