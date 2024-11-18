@@ -63,15 +63,15 @@ const UserRegister = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="p-10 shadow-2xl shadow-black rounded-3xl bg-[#88baa6] border-2 border-gray-500 font-sans max-w-sm w-96">
-                <h1 className="text-4xl text-center mb-6 font-bold text-black">User Register</h1>
+            <div className="p-10 shadow-2xl shadow-black rounded-3xl bg-orange-600 border-4 border-black font-sans max-w-sm w-96">
+            <h1 className="text-4xl text-center mb-6 font-bold text-black">User Register</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="relative my-6">
                         <input
                             type="text"
                             name="email"
                             id="email"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                            className="block w-full px-3 py-2 border border-black rounded-md focus:ring-2 focus:ring-black focus:outline-none"
                             placeholder="Your Email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -82,7 +82,7 @@ const UserRegister = () => {
                             type="password"
                             name="password"
                             id="password"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                            className="block w-full px-3 py-2 border border-black rounded-md focus:ring-2 focus:ring-black focus:outline-none"
                             placeholder="Enter Password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -93,22 +93,22 @@ const UserRegister = () => {
                             type="password"
                             name="confpassword"
                             id="confpassword"
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:outline-none"
+                            className="block w-full px-3 py-2 border border-black rounded-md focus:ring-2 focus:ring-black focus:outline-none"
                             placeholder="Confirm Password"
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
 
                     <button
-                        className="w-full py-2 mb-4 text-xl text-white bg-black rounded-full hover:bg-[#4C7766] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#38ad7f]"
+                        className="w-full py-2 mb-4 text-xl text-white bg-black rounded-full border-black border-2 hover:border-white"
                         type="submit"
                     >
                         Register
                     </button>
 
-                    <div className="text-center">
-                        <span className="text-md text-gray-800">
-                            Already have an account? <Link to="/" className="text-black hover:underline">Sign In</Link>
+                    <div className="text-center font-semibold">
+                        <span className="text-md text-stone-950">
+                            Already have an account? <Link to="/userLogin" className="text-gray-50 underline hover:text-black">Sign In</Link>
                         </span>
                     </div>
                 </form>

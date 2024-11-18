@@ -22,7 +22,8 @@ const Navbar = () => {
                 </h2>
             </div>
             <div className='mb-5 ml-96'>
-            <form className='flex justify-end items-center w-96 mt-5 border border-[#4C7766] rounded-full'>
+            {/* <form className='flex justify-end items-center w-96 mt-5 border border-[#4C7766] rounded-full'>
+                
           <input
             type="text"
             placeholder=" Search"
@@ -32,7 +33,7 @@ const Navbar = () => {
           <button type="submit" className="absolute bg-black font-bold text-white px-2 mr-1 rounded-full py-1">
             <HiOutlineSearch className='h-6' />
           </button>
-        </form>
+        </form> */}
             </div>
             </div>
 

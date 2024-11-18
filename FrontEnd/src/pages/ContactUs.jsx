@@ -3,8 +3,7 @@ import Navbar from '../components/Navbar'
 const ContactUs = () => {
   return (
     <>
-            <Navbar />
-
+     <Navbar/>
     <div>ContactUs</div>
     </>
   )
