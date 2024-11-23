@@ -91,7 +91,7 @@ const Hero = () => {
           Today's Specials</h1>
         <div className="grid grid-cols-5 gap-6 px-10 py-8 mt-4">     
           {menuItems.map((item) => (
-            <div key={item.id} className="border p-4 bg-orange-500 bg-opacity-50 backdrop-blur-xl rounded-lg hover:border-[#1a759f] shadow-lg hover:shadow-2xl hover:scale-105 duration-300">
+            <div key={item.id} className="border p-4 bg-[#eeeab9] rounded-lg hover:border-[#1a759f] shadow-lg hover:shadow-2xl hover:scale-105 duration-300">
               <img 
                 src={item.image} 
                 alt={item.name} 
