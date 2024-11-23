@@ -85,13 +85,13 @@ const Hero = () => {
     <>
     <Navbar />
 
-    <div className='bg-white'>
+    <div>
       <div>
-        <h1 className='text-4xl font-bold font-revellia px-10 pt-24'>
+        <h1 className='text-4xl text-white font-bold font-revellia px-10 pt-24'>
           Today's Specials</h1>
         <div className="grid grid-cols-5 gap-6 px-10 py-8 mt-4">     
           {menuItems.map((item) => (
-            <div key={item.id} className="border p-4 bg-[#eeeab9] rounded-lg hover:border-[#1a759f] shadow-lg hover:shadow-2xl hover:scale-105 duration-300">
+            <div key={item.id} className="border p-4 bg-orange-500 bg-opacity-50 backdrop-blur-xl rounded-lg hover:border-[#1a759f] shadow-lg hover:shadow-2xl hover:scale-105 duration-300">
               <img 
                 src={item.image} 
                 alt={item.name} 
@@ -117,7 +117,7 @@ const Hero = () => {
       </div>
       </div>
       <div>
-      <h2 className='text-4xl font-bold font-mono px-10 pt-24'>
+      <h2 className='text-4xl text-white font-bold font-mono px-10 pt-24'>
         Check out our Menu
       </h2>
       <div className="grid grid-cols-5 gap-6 px-10 py-6">
