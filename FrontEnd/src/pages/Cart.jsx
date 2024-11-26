@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Navbar from '../components/Navbar';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
+
 const Cart = () => {
     const [cartItems, setCartItems] = useState([
         
@@ -36,7 +37,7 @@ const Cart = () => {
           console.log(token)
           const response = await axios.post(
             'http://localhost:5000/protected/create-order', 
-            { amount:totalPrice*100 }, 
+            { amount: 80000 }, 
             { 
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -109,9 +110,9 @@ const Cart = () => {
           console.error('Error in payment process:', error);
         }
     }
-    
+  };
 
-    const removeFromCart = (index,name,quantity) => {
+    const removeFromCart = (index) => {
         const updatedCart = cartItems.filter((item, itemIndex) => itemIndex !== index);
         axios.post('http://localhost:5000/protected/cart/remove',{
             'user':username,
@@ -128,42 +129,25 @@ const Cart = () => {
             console.log(err);
         }
         )
-        if(name=="Chicken Biryani"){
-            axios.get('http://localhost:5000/protected/',{
-                "headers": {
-                    'Authorization': `Bearer ${token}`
-                }
-            }).then((response)=>{
-                console.log(response.data[5])
-                axios.put('http://localhost:5000/protected/',{
-                    'quantity':response.data[5].quantity+quantity
-                },{
-                    "headers": {
-                            'Authorization': `Bearer ${token}`
-                    }}).then((response)=>{
-                        console.log(response)
-                    }
-                ).catch((err)=>{
-                    console.log(err)
-                }
-                )
 
-        }).catch((err)=>{
-            console.log(err)
-        })
-        }
+    setCartItems(updatedCart);
+  };
 
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
-        setCartItems(updatedCart);          
-    };
+  return (
+    <>
+      {/* Navbar with burger menu */}
+      <Navbar />
 
-    const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-
-    return (
-        <>
-        <Navbar />
-        <div className="max-w-screen-md mx-auto px-2 pt-20">
-            <h1 className="text-4xl text-center mt-5 font-bold mb-6 text-black">Your Cart</h1>
+      {/* Cart Section */}
+      <div className="max-w-screen-lg mx-auto px-4 sm:px-8 pt-20">
+        <h1 className="text-3xl sm:text-4xl text-center mt-5 font-bold mb-6 text-black">
+          Your Cart
+        </h1>
 
             {cartItems.length > 0 ? (
                 <div>
@@ -177,7 +161,7 @@ const Cart = () => {
                                 <div className="text-right flex items-center gap-4">
                                     <p className="text-xl font-bold">₹{item.price * item.quantity}</p>
                                     <button 
-                                        onClick={() => removeFromCart(index,item.name,item.quantity)} 
+                                        onClick={() => removeFromCart(index)} 
                                         className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl">
                                         Remove
                                     </button>
@@ -185,24 +169,27 @@ const Cart = () => {
                             </div>
                         ))}
 
-                        <div className="flex justify-between mt-4">
-                            <h2 className="text-2xl font-bold">Total:</h2>
-                            <p className="text-2xl font-bold">₹{totalPrice}</p>
-                        </div>
-                        <div className='flex w-48 ml-60 '>
-                        <button                                         className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl
-mt-6 w-full" onClick={handlePayment}>
-                            Proceed to Payment
-                        </button>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <p className="text-2xl text-white">Your cart is empty.</p>
-            )}
-        </div>
-                    </>
-    );
+            <div className="flex justify-between mt-6">
+              <h2 className="text-xl sm:text-2xl font-bold">Total:</h2>
+              <p className="text-xl sm:text-2xl font-bold">₹{totalPrice}</p>
+            </div>
+            <div className="flex justify-center mt-6">
+              <button
+                className="bg-white text-[#4C7766] font-bold py-2 px-6 rounded-xl w-full sm:w-auto"
+                onClick={handlePayment}
+              >
+                Proceed to Payment
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-xl sm:text-2xl text-black text-center mt-6">
+            Your cart is empty.
+          </p>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Cart;
