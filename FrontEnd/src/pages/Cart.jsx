@@ -10,7 +10,7 @@ const Cart = () => {
     const token=localStorage.getItem('token');
     const navigate=useNavigate()
     if(token==null){
-        window.location.href='/login';
+        navigate('/login')
     }
     
     useEffect(() => {
@@ -32,34 +32,96 @@ const Cart = () => {
     }, [username]);
     
     const handlePayment = async () => {
-        const response=await axios.post('http://localhost:5000/protected/checkout', {
-           
-            'user':username,
-            'items':cartItems
-        },{
-            headers: {
-                'Authorization': `Bearer ${token}`
-            } ,
-        })
-        console.log(response.data)
-        if(response.data.success){
-            const order=await axios.post('http://localhost:5000/protected/orderlist', {
-                
-                orders:cartItems
-            },{
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                } ,
-            })
-            console.log(order)
-            if(order.data.success){
-                console.log('Order placed successfully');
-                navigate('/token')
-                setCartItems([]);
-            }
-        }else{
-            console.log('Payment failed');
+        try {
+          // Call backend to create an orde
+          console.log(token)
+          const response = await axios.post(
+            'http://localhost:5000/protected/create-order', 
+            { amount: 80000 },  // Request body
+            { 
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              }
+            }  // Headers
+          );
+    
+          const { id: order_id, amount, currency } = response.data;
+          console.log(response.data);
+    
+          
+          const options = {
+            key: 'rzp_test_KjWqiF0J29xI5A',
+            amount: amount, 
+            currency: currency,
+            name: 'Your Company Name',
+            description: 'Test Transaction',
+            order_id: order_id,
+            handler: async (response) => {
+                const verifyResponse = await axios.post(
+                    'http://127.0.0.1:5000/protected/verify-payment',
+                    {
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_signature: response.razorpay_signature,
+                    },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                          }
+                    }
+                  );
+                  
+              console.log(verifyResponse.data);
+    
+              if (verifyResponse.data.status === 'success') {
+                alert('Payment successful!');
+              } else {
+                alert('Payment verification failed.');
+              }
+            },
+            prefill: {
+              name: 'Test User',
+              email: 'testuser@example.com',
+              contact: '9999999999',
+            },
+            theme: {
+              color: '#3399cc',
+            },
+          };
+    
+          const razorpay = new window.Razorpay(options);
+          razorpay.open();
+        } catch (error) {
+          console.error('Error in payment process:', error);
         }
+        // const response=await axios.post('http://localhost:5000/protected/checkout', {
+           
+        //     'user':username,
+        //     'items':cartItems
+        // },{
+        //     headers: {
+        //         'Authorization': `Bearer ${token}`
+        //     } ,
+        // })
+        // console.log(response.data)
+        // if(response.data.success){
+        //     const order=await axios.post('http://localhost:5000/protected/orderlist', {
+                
+        //         orders:cartItems
+        //     },{
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //         } ,
+        //     })
+        //     console.log(order)
+        //     if(order.data.success){
+        //         console.log('Order placed successfully');
+        //         navigate('/token')
+        //         setCartItems([]);
+        //     }
+        // }else{
+        //     console.log('Payment failed');
+        // }
 
     }
     
