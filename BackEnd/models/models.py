@@ -25,6 +25,7 @@ class special(db.Model):
 
 
 class order_list(db.Model):
+   
     id=db.Column(db.Integer,primary_key=True)
     orders=db.Column(db.JSON)
 

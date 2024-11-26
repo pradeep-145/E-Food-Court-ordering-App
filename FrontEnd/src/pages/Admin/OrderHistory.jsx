@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminNav from './AdminNav';
-
+import axios from 'axios';
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([
     {
@@ -23,11 +23,25 @@ const OrderHistory = () => {
       createdAt: '2021-09-02T12:34:56.000Z',
     },
   ]);
-
+  useEffect(() => {
+    const fetchOrderHistory = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/admin/history');
+        if (response.data.success) {
+          console.log(response.data);
+          setOrderHistory(response.data.orders[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching order history:', error);
+      }
+    };
+    fetchOrderHistory();
+  }
+  , []);
   return (
     <>
       <AdminNav />
-      <div className="max-w-screen-md mx-auto px-4 pt-20">
+      {/* <div className="max-w-screen-md mx-auto px-4 pt-20">
         <h2 className="text-3xl font-bold text-center mb-6">Order History</h2>
         <div className="overflow-x-auto border-2 rounded-lg">
           <table className="w-full table-auto">
@@ -40,7 +54,14 @@ const OrderHistory = () => {
               </tr>
             </thead>
             <tbody>
-              {orderHistory.map((order, index) => (
+              {orderHistory.map((order, index) => {
+                const totalPrice = order.order.reduce(
+                  (total, item) => total + item.price * item.quantity,
+                  0
+                );
+                return (
+
+                
                 <tr
                   key={order.id}
                   className={`text-sm sm:text-base ${
@@ -50,23 +71,23 @@ const OrderHistory = () => {
                   <td className="px-4 py-2">{order.id}</td>
                   <td className="px-4 py-2">
                     <ul className="list-disc pl-5">
-                      {order.items.map((item) => (
+                      {order.order.map((item) => (
                         <li key={item.id}>
                           {item.name} x {item.quantity}
                         </li>
                       ))}
                     </ul>
                   </td>
-                  <td className="px-4 py-2">${order.totalPrice}</td>
+                  <td className="px-4 py-2">${totalPrice}</td>
                   <td className="px-4 py-2 whitespace-nowrap">
-                    {new Date(order.createdAt).toLocaleString()}
+                    {}
                   </td>
                 </tr>
-              ))}
+              )})}
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
