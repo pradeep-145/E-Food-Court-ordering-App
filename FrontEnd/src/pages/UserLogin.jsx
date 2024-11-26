@@ -61,6 +61,7 @@ const UserLogin = () => {
                 console.log('Login Successful');
                 notifySuccess();
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('username', email);
                 
 
                 setTimeout(() => {
