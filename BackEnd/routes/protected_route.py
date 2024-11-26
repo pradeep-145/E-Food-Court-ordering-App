@@ -1,5 +1,6 @@
 from flask import *
 import razorpay
+from datetime import datetime
 from models import *
 from utils import *
 from razorpay import *
@@ -24,20 +25,7 @@ def check_token():
     else:
         data=verify_token(token)
         if data=="Unauthorized" or not data:
-            return jsonify({'message':'Unauthorized'})
-
-from datetime import datetime
-
-
-current_time = datetime.utcnow()
-
-if current_time.hour == 0 and current_time.minute == 0:
-    special.query.delete()
-    order_list.__table__.drop(db.engine)  
-    db.create_all([order_list])  
-
-
-
+            return jsonify({'message':'Unauthorized'})  
 
 @protected_bp.route('/verify',methods=['GET'])
 def home():

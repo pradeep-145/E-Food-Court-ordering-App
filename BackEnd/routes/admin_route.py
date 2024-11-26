@@ -69,8 +69,11 @@ def orderHistory():
     data=order_history.query.all()
     orders=[]
     for i in data:
-        orders.append(i.orders)
-    return jsonify({'orders':orders})
+        orders.append({
+            'orders':i.orders,
+            'time':i.time
+        })
+    return jsonify({'orders':orders,'success':True})    
 
 
 @admin_bp.route('/add-history',methods=['POST'])

@@ -4,6 +4,8 @@ import logging
 from flask_cors import *
 from models import *
 from routes import *
+from sqlalchemy import text
+
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -16,28 +18,38 @@ load_dotenv()
 
 CORS(app)
 
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MQ_SQL_URI')
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+def delete_rows():
+    try:
+        with app.app_context():  # Creating application context here
+            # Delete special items
+            db.session.query(special).delete()
+            db.session.commit()
+            print("Deleted all special items.")
 
-# def delete_rows():
-#     data=daily_food.query.filter_by(name='Chicken Biryani').first()
-#     data.quantity=0
-#     with app.app_context():
-#         db.session.query(special).delete()
-#         db.session.commit()
-#     print('All rows deleted successfully on ', datetime.now())
+            # Drop the order_list table
+            db.session.query(order_list).delete()
+            db.session.commit()
+            
+            # Reset auto-increment counter
+            db.session.execute(text('ALTER TABLE order_list AUTO_INCREMENT = 1;'))
+            db.session.commit()  # Use the correct bind for recreation
+            print("Recreated order_list table.")
+    except Exception as e:
+        print(f"Error during deletion operation: {e}")
 
-# def setup_scheduler():
-#     scheduler = BackgroundScheduler()
-#     scheduler.add_job(delete_rows, CronTrigger(hour=0, minute=0, second=0))
-#     scheduler.start()
+# Function to set up the scheduler
+def setup_scheduler():
+    scheduler = BackgroundScheduler()
 
-# @app.before_first_request
-# def before_first_request():
-#     setup_scheduler()
+    scheduler.add_job(delete_rows, CronTrigger(hour=0, minute=0, second=0))
+    scheduler.start()
 
 
 app.register_blueprint(auth_bp,url_prefix='/auth')
@@ -102,4 +114,6 @@ def get_cart():
     return jsonify(output)
 
 if __name__=='__main__':
+    current_time = datetime.now()
+    setup_scheduler()
     app.run(port=5000,debug=True)
