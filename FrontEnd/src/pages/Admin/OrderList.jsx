@@ -15,9 +15,13 @@ useEffect(()=>{
   fetch()
   
 },[])
+
   const handlePrint=async()=>{
+    const currentDateTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
     const response=await axios.post('http://localhost:5000/admin/add-history',{
-      orders
+      orders,
+      time:currentDateTime
     })
     console.log(response.data)
     window.print()
