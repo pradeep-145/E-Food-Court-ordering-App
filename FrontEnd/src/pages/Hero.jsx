@@ -22,8 +22,7 @@ const Hero = () => {
       })
       .then((response) => {
         const updatedMenuItems = response.data.map((item) => ({
-          ...item,
-          quantity: 1,
+          ...item
         }));
         setMenuItems(updatedMenuItems);
       })
