@@ -1,13 +1,21 @@
 from flask import *
+import razorpay
 from models import *
 from utils import *
+from razorpay import *
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 protected_bp=Blueprint('protected',__name__)
 data=None
+
+client = Client(auth=(os.getenv('RAZORPAY_KEY_ID'), os.getenv('RAZORPAY_KEY_SECRET')))
 @protected_bp.before_request
 def check_token():
     global data
     token=None
-
+    
     if 'Authorization' in request.headers:
         token=request.headers['Authorization'].split(" ")[1]
 
@@ -80,6 +88,49 @@ def cart_remove():
     db.session.commit()
     return jsonify({'message': message})
 
+
+@protected_bp.route('/create-order',methods=['POST'])
+def create_order():
+    try:
+        data = request.json  # Get amount from frontend
+        amount = data['amount']  # Amount in paise (e.g., Rs. 100 = 10000 paise)
+        currency = "INR"
+
+        # Create Razorpay order
+        order = client.order.create({
+            "amount": amount,
+            "currency": currency,
+            "payment_capture": 1  # Auto-capture payment
+        })
+
+        return jsonify(order), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    
+
+
+@protected_bp.route('/verify-payment',methods=['POST'])
+def verify_payment():
+    try:
+        data = request.json
+
+        razorpay_order_id = data['razorpay_order_id']
+        razorpay_payment_id = data['razorpay_payment_id']
+        razorpay_signature = data['razorpay_signature']
+
+        # Verify payment signature
+        client.utility.verify_payment_signature({
+            'razorpay_order_id': razorpay_order_id,
+            'razorpay_payment_id': razorpay_payment_id,
+            'razorpay_signature': razorpay_signature
+        })
+
+        return jsonify({"status": "success"}), 200
+    except razorpay.errors.SignatureVerificationError:
+        return jsonify({"status": "failure", "error": "Invalid signature"}), 400
+    except Exception as e:
+        return jsonify({"status": "failure", "error": str(e)}), 400
+
 @protected_bp.route('/cart/<username>',methods=['GET'])
 def get_cart(username):
     current_app.logger.info("hello %s",username)
@@ -87,10 +138,6 @@ def get_cart(username):
     output=[{'user':item.user,'items':item.item} for item in cart_items]
     return jsonify(output)
 
-
-@protected_bp.route('/checkout',methods=['POST'])
-def checkout():
-    return jsonify({'success':True})
 
 
 @protected_bp.route('/special',methods=['GET'])
