@@ -12,6 +12,7 @@ const Hero = () => {
   const [dialogMode, setDialogMode] = useState("cart"); // 'cart' or 'buy'
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(null);
+  const [biryani, setBiryani] = useState(0);
 
   const navigate = useNavigate(); // Initialize navigate hook
 
@@ -78,6 +79,22 @@ const Hero = () => {
       )
       .then((response) => {
         console.log("Item added to cart:", response.data);
+        axios
+      .put(
+        'http://localhost:5000/protected/',
+        { quantity: (biryani - quantity) },
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token'),
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
         toast.success(`${updatedItem.name} added to cart!`); // Show success toaster
         closeDialog();
       })
@@ -203,6 +220,49 @@ const Hero = () => {
   )}
 </div>
 
+      {dialogVisible && selectedItem && (
+        <div className="fixed inset-0 bg-[#9DBBAE] bg-opacity-50 flex justify-center items-center">
+          <div className="bg-gray-200 text-[#4C7766] font-bold p-8 rounded-lg shadow-2xl w-96">
+            <h2 className="text-xl font-bold mb-4">
+              {dialogMode === "cart" ? "Add to Cart" : "Buy Now"}
+            </h2>
+            <p className="mb-2">Item: {selectedItem.name}</p>
+            <p className="mb-2">Price: ₹{selectedItem.price}</p>
+            <div className="flex items-center gap-4">
+              <label htmlFor="quantity" className="font-semibold">
+                Quantity:
+              </label>
+              <input
+                id="quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                min="1"
+                className=" text-[#4C7766] border-2 border-[#4C7766] rounded px-2 py-1 w-16"
+              />
+            </div>
+            <div className="mt-6 flex justify-end gap-4">
+              <button
+                onClick={closeDialog}
+                className="px-4 py-2 bg-white text-[#4C7766] border-[#4C7766] hover:bg-[#4C7766] hover:text-white border-2 rounded-lg"
+              >
+                Cancel
+              </button>
+             
+                <button
+                  onClick={()=>{
+                    handleAddToCart();
+                    }}
+                  className="px-4 py-2 bg-white text-[#4C7766] border-[#4C7766] hover:bg-[#4C7766] hover:text-white border-2 rounded-lg"
+                >
+                  Add to Cart
+                </button>
+             
+               
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
