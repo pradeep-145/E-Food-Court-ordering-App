@@ -7,7 +7,7 @@ const ContactUs = () => {
       <Navbar />
       <div className="flex flex-col justify-center items-center min-h-screen">
           <div className="text-white font-bold text-5xl text-center mt-52">Get in touch with us</div>
-        <div className="flex flex-col justify-center items-center bg-orange-500 bg-opacity-50 backdrop-blur-xl p-10 rounded-xl mt-10">
+        <div className="flex flex-col justify-center items-center bg-white bg-opacity-70 backdrop-blur-xl p-10 rounded-xl mt-10">
           <div className="flex flex-col gap-8">
             <h2 className="text-black font-bold font-serif text-2xl">Email: sakthi@gmail.com</h2>
             <span className="text-black font-serif font-bold text-2xl">

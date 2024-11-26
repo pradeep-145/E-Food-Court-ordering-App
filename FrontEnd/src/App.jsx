@@ -27,14 +27,8 @@ function App() {
         <Welcome />
         </div>
       } />
-      <Route path="/home" element={
-        <div style={{ backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover', backgroundPosition:'center',
-        backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
-         minHeight: '100vh', width:'100%', height:'100%'}}>
-        <Hero />
-        </div>
-        } />
+      <Route path="/home" element={<Hero />   
+  } />
       <Route path="/cart" element={
         <div style={{ backgroundImage: `url(${bg})`,
         backgroundSize: 'cover', backgroundPosition:'center',

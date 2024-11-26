@@ -88,16 +88,7 @@ const Hero = () => {
       });
   };
 
-  const handleBuyNow = () => {
-    const updatedItem = { ...selectedItem, quantity };
-
-    // Redirect to payment page with item details (you may modify the route as needed)
-    navigate("/payment", {
-      state: {
-        item: updatedItem,
-      },
-    });
-  };
+  
 
   return (
     <>
@@ -133,12 +124,7 @@ const Hero = () => {
                   >
                     Add to Cart
                   </button>
-                  <button
-                    onClick={() => openDialog(item, "buy")}
-                    className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-4 transition duration-200"
-                  >
-                    Buy Now
-                  </button>
+                  
                 </div>
               </div>
             ))}
@@ -170,12 +156,7 @@ const Hero = () => {
                   >
                     Add to Cart
                   </button>
-                  <button
-                    onClick={() => openDialog(item, "buy")}
-                    className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mt-4 transition duration-200"
-                  >
-                    Buy Now
-                  </button>
+                 
                 </div>
               </div>
             ))}
@@ -211,21 +192,15 @@ const Hero = () => {
               >
                 Cancel
               </button>
-              {dialogMode === "cart" ? (
+             
                 <button
                   onClick={handleAddToCart}
                   className="px-4 py-2 bg-green-600 text-white rounded"
                 >
                   Add to Cart
                 </button>
-              ) : (
-                <button
-                  onClick={handleBuyNow}
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
-                >
-                  Buy Now
-                </button>
-              )}
+             
+               
             </div>
           </div>
         </div>

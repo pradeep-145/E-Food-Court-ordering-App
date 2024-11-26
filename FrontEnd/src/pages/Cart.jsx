@@ -142,7 +142,7 @@ const Cart = () => {
 
             {cartItems.length > 0 ? (
                 <div>
-                    <div className="bg-orange-500 bg-opacity-50 backdrop-blur-xl shadow-md rounded-xl p-8">
+                    <div className="bg-white bg-opacity-70 backdrop-blur-xl shadow-md rounded-xl p-8">
                         {cartItems.map((item, index) => (
                             <div key={index} className="flex justify-between border-b py-4 items-center">
                                 <div>
