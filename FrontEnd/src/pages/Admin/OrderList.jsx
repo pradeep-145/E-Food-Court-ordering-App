@@ -11,19 +11,22 @@ const OrderList = () => {
     if (response.data.success) {
       setOrders(response.data.orders);
     }
-  };
+  }
+useEffect(()=>{
+  fetch()
+  
+},[])
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
+  const handlePrint=async()=>{
+    const currentDateTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-  const handlePrint = async () => {
-    const response = await axios.post('http://localhost:5000/admin/add-history', {
+    const response=await axios.post('http://localhost:5000/admin/add-history',{
       orders,
-    });
-    console.log(response.data);
-    window.print();
-  };
+      time:currentDateTime
+    })
+    console.log(response.data)
+    window.print()
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen">
