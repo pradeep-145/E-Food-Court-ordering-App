@@ -26,9 +26,17 @@ def check_token():
         if data=="Unauthorized" or not data:
             return jsonify({'message':'Unauthorized'})
 
-if(datetime.utcnow().hour==0 and datetime.utcnow().minute==0):
-    special.__table__.drop(db.engine)
-    
+from datetime import datetime
+
+
+current_time = datetime.utcnow()
+
+if current_time.hour == 0 and current_time.minute == 0:
+    special.query.delete()
+    order_list.__table__.drop(db.engine)  
+    db.create_all([order_list])  
+
+
 
 
 @protected_bp.route('/verify',methods=['GET'])
@@ -74,6 +82,9 @@ def cart_update():
         message = 'All items added to cart successfully!'
     db.session.commit()
     return jsonify({'message': message})
+
+
+
 @protected_bp.route('/cart/remove', methods=['POST'])
 def cart_remove():
     data = request.get_json()
@@ -97,15 +108,14 @@ def cart_remove():
 @protected_bp.route('/create-order',methods=['POST'])
 def create_order():
     try:
-        data = request.json  # Get amount from frontend
-        amount = data['amount']  # Amount in paise (e.g., Rs. 100 = 10000 paise)
+        data = request.json 
+        amount = data['amount'] 
         currency = "INR"
 
-        # Create Razorpay order
         order = client.order.create({
             "amount": amount,
             "currency": currency,
-            "payment_capture": 1  # Auto-capture payment
+            "payment_capture": 1  
         })
 
         return jsonify(order), 200
@@ -123,7 +133,6 @@ def verify_payment():
         razorpay_payment_id = data['razorpay_payment_id']
         razorpay_signature = data['razorpay_signature']
 
-        # Verify payment signature
         client.utility.verify_payment_signature({
             'razorpay_order_id': razorpay_order_id,
             'razorpay_payment_id': razorpay_payment_id,

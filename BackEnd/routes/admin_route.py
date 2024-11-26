@@ -31,7 +31,7 @@ def add_food():
 
         return jsonify({'message': 'Item added successfully!'}), 201
     except Exception as e:
-        db.session.rollback()  # Rollback in case of an error
+        db.session.rollback()
         return jsonify({'error': 'Failed to add item', 'details': str(e)}), 500
 
 
