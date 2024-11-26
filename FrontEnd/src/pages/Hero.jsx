@@ -4,6 +4,7 @@ import "../App.css";
 import Navbar from '../components/Navbar';
 const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [special, setSpecial] = useState([]);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     axios.get('http://localhost:5000/protected/',
@@ -19,6 +20,22 @@ const Hero = () => {
       .catch(error => {
         console.error('Error fetching menu items:', error);
       });
+
+
+
+      axios.get('http://localhost:5000/protected/special',
+      {
+        'headers':'Authorization: Bearer '+localStorage.getItem('token')
+      }
+      )
+      .then(response => {
+        console.log(response.data[0].items)
+        setSpecial(response.data[0].items);
+      })
+      .catch(error => {
+        console.error('Error fetching specials:', error);
+      });
+  
   }, []);
   useEffect(()=>{
     const token=localStorage.getItem('token')
@@ -90,7 +107,7 @@ const Hero = () => {
         <h1 className='text-4xl text-white font-bold font-revellia px-10 pt-24'>
           Today's Specials</h1>
         <div className="grid grid-cols-5 gap-6 px-10 py-8 mt-4">     
-          {menuItems.map((item) => (
+          {special.map((item) => (
             <div key={item.id} className="border p-4 bg-[#eeeab9] rounded-lg hover:border-[#1a759f] shadow-lg hover:shadow-2xl hover:scale-105 duration-300">
               <img 
                 src={item.image} 

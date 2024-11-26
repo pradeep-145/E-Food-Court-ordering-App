@@ -93,6 +93,12 @@ def checkout():
     return jsonify({'success':True})
 
 
+@protected_bp.route('/special',methods=['GET'])
+def special_food():
+    data=special.query.all()
+    output=[{'items':food.items,'id':food.id} for food in data]
+    return jsonify(output)
+
 @protected_bp.route('/orderlist',methods=['POST'])
 def orderlist():
     data=request.get_json()
