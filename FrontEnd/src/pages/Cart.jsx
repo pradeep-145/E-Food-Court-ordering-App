@@ -138,11 +138,11 @@ const Cart = () => {
         <>
         <Navbar />
         <div className="max-w-screen-md mx-auto px-2 pt-20">
-            <h1 className="text-4xl text-center mt-5 font-bold mb-6 text-white">Your Cart</h1>
+            <h1 className="text-4xl text-center mt-5 font-bold mb-6 text-black">Your Cart</h1>
 
             {cartItems.length > 0 ? (
                 <div>
-                    <div className="bg-white bg-opacity-70 backdrop-blur-xl shadow-md rounded-xl p-8">
+                    <div className="bg-[#4C7766] bg-opacity-70 backdrop-blur-xl shadow-md rounded-xl p-8">
                         {cartItems.map((item, index) => (
                             <div key={index} className="flex justify-between border-b py-4 items-center">
                                 <div>
@@ -153,7 +153,7 @@ const Cart = () => {
                                     <p className="text-xl font-bold">₹{item.price * item.quantity}</p>
                                     <button 
                                         onClick={() => removeFromCart(index)} 
-                                        className="bg-black hover:bg-white hover:text-black text-white font-bold py-1 px-3 rounded-xl">
+                                        className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl">
                                         Remove
                                     </button>
                                 </div>
@@ -165,7 +165,8 @@ const Cart = () => {
                             <p className="text-2xl font-bold">₹{totalPrice}</p>
                         </div>
                         <div className='flex w-48 ml-60 '>
-                        <button className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded-xl mt-6 w-full" onClick={handlePayment}>
+                        <button                                         className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl
+mt-6 w-full" onClick={handlePayment}>
                             Proceed to Payment
                         </button>
                         </div>

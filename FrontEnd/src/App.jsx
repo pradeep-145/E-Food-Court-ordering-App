@@ -29,13 +29,8 @@ function App() {
       } />
       <Route path="/home" element={<Hero />   
   } />
-      <Route path="/cart" element={
-        <div style={{ backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover', backgroundPosition:'center',
-        backgroundAttachment:'fixed', backgroundRepeat:'no-repeat',
-         minHeight: '100vh', width:'100%', height:'100%'}}>
+      <Route path="/cart" element={       
         <Cart />
-        </div>
         } />
       <Route path="/register" element={
         <div style={{ backgroundImage: `url(${bg})`,

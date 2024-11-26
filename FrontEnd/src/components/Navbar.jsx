@@ -11,7 +11,7 @@ const Navbar = () => {
     };
 
     return (
-        <div id='navbar' className='flex items-center justify-between bg-orange-500 bg-opacity-30 font-sans font-semibold backdrop-blur-md px-8 pt-2 fixed w-full h-16 shadow-lg'>
+        <div id='navbar' className='flex items-center justify-between bg-[#4C7766]  bg-opacity-70 font-sans font-semibold px-8 pt-2 fixed w-full h-16 shadow-xl'>
            <div className='flex justify-between'>
              <div className='flex flex-shrink-0 items-center text-5xl font-bold cursor-pointer mt-1'>
                 <Link to="/home">
@@ -53,20 +53,20 @@ const Navbar = () => {
 
             <div className='hidden lg:flex items-center justify-center gap-9 text-xl cursor-pointer'>
                 <div>
-                    <Link to="/home" onClick={() => setIsOpen(false)} className='text-white hover:border-2 hover:border-white hover:bg-black hover:text-white hover:rounded-full p-2 text-center w-20'>Home</Link>
+                    <Link to="/home" onClick={() => setIsOpen(false)} className='text-white hover:border-b-4 hover:scale-y-105 hover:border-black hover:text-black p-2 text-center'>Home</Link>
                 </div>
                 <div>
-                    <Link to="/cart" onClick={() => setIsOpen(false)} className='text-white hover:border-2 hover:border-white  hover:bg-black hover:text-white hover:rounded-full p-2 text-center w-20'>Cart</Link>
+                    <Link to="/cart" onClick={() => setIsOpen(false)} className='text-white hover:border-b-4 hover:scale-y-105 hover:border-black hover:text-black p-2 text-center'>Cart</Link>
                 </div>
                 <div>
-                    <Link to="/contactUs" onClick={() => setIsOpen(false)} className='text-white hover:border-2 hover:border-white  hover:bg-black hover:text-white hover:rounded-full p-2 text-center w-20'>Contact Us</Link>
+                    <Link to="/contactUs" onClick={() => setIsOpen(false)} className='text-white hover:border-b-4 hover:scale-y-105 hover:border-black hover:text-black p-2 text-center'>Contact Us</Link>
                 </div>
                 <div>
                     <Link to="/" onClick={() => {
                         setIsOpen(false)
                         localStorage.removeItem('token')
                         localStorage.removeItem('username')
-                        }} className='text-white hover:border-2 hover:border-white hover:bg-red-400 hover:rounded-full p-2 text-center w-20 hover:text-white'>Logout</Link>
+                        }} className='text-white hover:border-b-4 hover:scale-y-105 hover:border-black hover:text-black p-2 text-center'>Logout</Link>
                 </div>
             </div>
         </div>

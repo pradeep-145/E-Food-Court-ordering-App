@@ -11,7 +11,7 @@ const Hero = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [dialogMode, setDialogMode] = useState("cart"); // 'cart' or 'buy'
   const [selectedItem, setSelectedItem] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(null);
 
   const navigate = useNavigate(); // Initialize navigate hook
 
@@ -96,16 +96,16 @@ const Hero = () => {
       {/* Add Toaster Component */}
       <Toaster position="top-right" reverseOrder={false} />
 
-      <div>
+      <div className="bg-[#EBE6E0]">
         <div>
-          <h1 className="text-4xl text-white font-bold font-revellia px-10 pt-24">
+          <h1 className="text-4xl text-black font-bold font-revellia px-10 pt-24">
             Today's Specials
           </h1>
           <div className="grid grid-cols-5 gap-6 px-10 py-8 mt-4">
             {special.map((item) => (
               <div
                 key={item.id}
-                className="border p-4 bg-[#eeeab9] rounded-lg hover:border-[#1a759f] shadow-lg hover:shadow-2xl hover:scale-105 duration-300"
+                className="border p-4 text-white bg-[#4C7766] rounded-lg hover:border-[#4C7766] shadow-lg hover:shadow-2xl hover:scale-105 duration-300"
               >
                 <img
                   src={item.image}
@@ -113,14 +113,14 @@ const Hero = () => {
                   className="w-full rounded-lg h-48"
                 />
                 <h3 className="text-2xl font-bold mt-4">{item.name}</h3>
-                <div className="flex justify-between">
-                  <p className="text-xl mt-3">{item.type}</p>
-                  <p className="text-2xl mt-3 font-bold">Price: ₹{item.price}</p>
+                <div className="flex justify-between mt-3">
+                  <p className="text-xl">{item.type}</p>
+                  <p className="text-xl font-bold">Price: ₹{item.price}</p>
                 </div>
                 <div className="flex gap-4">
                   <button
                     onClick={() => openDialog(item, "cart")}
-                    className="bg-gray-600 hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400 font-bold py-2 px-4 rounded mt-4 transition duration-200"
+                    className="bg-white text-[#4C7766] border-2 hover:border-gray-400 font-bold py-2 px-4 rounded-lg mt-4 transition duration-200"
                   >
                     Add to Cart
                   </button>
@@ -132,14 +132,14 @@ const Hero = () => {
         </div>
 
         <div>
-          <h2 className="text-4xl text-white font-bold font-mono px-10 pt-24">
+          <h2 className="text-4xl text-black font-bold px-10 pt-12">
             Check out our Menu
           </h2>
           <div className="grid grid-cols-5 gap-6 px-10 py-6">
             {menuItems.map((item) => (
               <div
                 key={item.id}
-                className="border p-6 bg-[#F5F5DC] rounded-lg hover:border-[#43B3AE] shadow-lg hover:shadow-2xl hover:scale-105 duration-300"
+                className="border p-4 text-white bg-[#4C7766] rounded-lg hover:border-[#4C7766] shadow-lg hover:shadow-2xl hover:scale-105 duration-300"
               >
                 <img
                   src={item.image}
@@ -147,12 +147,17 @@ const Hero = () => {
                   className="w-full rounded-lg h-48"
                 />
                 <h3 className="text-2xl font-bold mt-4">{item.name}</h3>
-                <p className="text-lg mt-2">{item.type}</p>
-                <p>Price: ₹{item.price}</p>
-                <div className="flex gap-4">
+                {item.quantity&&
+            <p>{item.quantity}</p>
+            }
+                <div className="flex mt-2 justify-between">
+                <p className="text-lg">{item.type}</p>
+                <p className="text-lg font-bold">Price: ₹{item.price}</p>
+                </div>
+                <div className="flex">
                   <button
                     onClick={() => openDialog(item, "cart")}
-                    className="bg-gray-600 hover:bg-black hover:border-[#43B3AE] hover:text-[#43B3AE] text-white border-2 border-gray-400 font-bold py-2 px-4 rounded mt-4 transition duration-200"
+                    className="bg-white text-[#4C7766] border-2 hover:border-gray-400 font-bold py-2 px-4 rounded-lg mt-4 transition duration-200"
                   >
                     Add to Cart
                   </button>
@@ -165,8 +170,8 @@ const Hero = () => {
       </div>
 
       {dialogVisible && selectedItem && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-8 rounded shadow-lg w-96">
+        <div className="fixed inset-0 bg-[#9DBBAE] bg-opacity-50 flex justify-center items-center">
+          <div className="bg-gray-200 text-[#4C7766] font-bold p-8 rounded-lg shadow-2xl w-96">
             <h2 className="text-xl font-bold mb-4">
               {dialogMode === "cart" ? "Add to Cart" : "Buy Now"}
             </h2>
@@ -182,20 +187,20 @@ const Hero = () => {
                 value={quantity}
                 onChange={(e) => setQuantity(Number(e.target.value))}
                 min="1"
-                className="border rounded px-2 py-1 w-16"
+                className=" text-[#4C7766] border-2 border-[#4C7766] rounded px-2 py-1 w-16"
               />
             </div>
             <div className="mt-6 flex justify-end gap-4">
               <button
                 onClick={closeDialog}
-                className="px-4 py-2 bg-gray-600 text-white rounded"
+                className="px-4 py-2 bg-white text-[#4C7766] border-[#4C7766] hover:bg-[#4C7766] hover:text-white border-2 rounded-lg"
               >
                 Cancel
               </button>
              
                 <button
                   onClick={handleAddToCart}
-                  className="px-4 py-2 bg-green-600 text-white rounded"
+                  className="px-4 py-2 bg-white text-[#4C7766] border-[#4C7766] hover:bg-[#4C7766] hover:text-white border-2 rounded-lg"
                 >
                   Add to Cart
                 </button>
