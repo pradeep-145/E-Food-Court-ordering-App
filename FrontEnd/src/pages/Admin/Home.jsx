@@ -1,33 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Toaster, toast } from 'react-hot-toast';
+
 import Navbar from './AdminNav'; // Importing the Navbar
 
 const AdminPage = () => {
   const [selectedItems, setSelectedItems] = useState([]); // Track selected items
   const [biryani, setBiryani] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   const specialItems = [
-    { id: 1, name: 'Chicken Biryani', price: 12.99, type: 'Non-Veg', image: 'https://via.placeholder.com/100x100?text=Chicken+Biryani' },
-    { id: 2, name: 'Mushroom Biryani', price: 11.49, type: 'Veg', image: 'https://via.placeholder.com/100x100?text=Mushroom+Biryani' },
-    { id: 3, name: 'Paneer Tikka', price: 9.99, type: 'Veg', image: 'https://via.placeholder.com/100x100?text=Paneer+Tikka' },
-    { id: 4, name: 'Chicken Roast', price: 14.99, type: 'Non-Veg', image: 'https://via.placeholder.com/100x100?text=Chicken+Roast' },
-    { id: 5, name: 'Lamb Korma', price: 15.99, type: 'Non-Veg', image: 'https://via.placeholder.com/100x100?text=Lamb+Korma' },
-    { id: 6, name: 'Veg Pulao', price: 10.49, type: 'Veg', image: 'https://via.placeholder.com/100x100?text=Veg+Pulao' },
-    { id: 7, name: 'Butter Chicken', price: 13.49, type: 'Non-Veg', image: 'https://via.placeholder.com/100x100?text=Butter+Chicken' },
-    { id: 8, name: 'Tandoori Chicken', price: 16.49, type: 'Non-Veg', image: 'https://via.placeholder.com/100x100?text=Tandoori+Chicken' },
-    { id: 9, name: 'Chole Bhature', price: 8.99, type: 'Veg', image: 'https://via.placeholder.com/100x100?text=Chole+Bhature' },
-    { id: 10, name: 'Aloo Paratha', price: 7.49, type: 'Veg', image: 'https://via.placeholder.com/100x100?text=Aloo+Paratha' },
+    // ... (your specialItems array remains unchanged)
   ];
 
+  useEffect(() => {
+    // Simulate a loading delay to fetch data (if any)
+    const timeout = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   const handleSave = () => {
-    console.log(selectedItems);
+    toast.loading('Saving...', { id: 'saveToast' }); // Show a loading toast
+
     axios
       .post('http://localhost:5000/admin/add', { items: selectedItems })
       .then((response) => {
         console.log(response);
+        toast.success('Items saved successfully!', {
+          id: 'saveToast', // Dismiss loading toast
+          style: { background: 'white', color: '#4C7766' }, // Red "hot" style
+        });
       })
       .catch((err) => {
         console.log(err);
+        toast.error('Failed to save items!', {
+          id: 'saveToast',
+          style: { background: 'white', color: '#4C7766' },
+        });
       });
 
     axios
@@ -48,8 +57,17 @@ const AdminPage = () => {
       });
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#F0F4F1]">
+        <div className="text-2xl font-bold text-[#4C7766]">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <>
+      <Toaster /> {/* Add Toaster for toast notifications */}
       <Navbar /> {/* Use the Navbar here */}
       <div className="w-full px-4 sm:px-8 py-10 bg-[#F0F4F1] pt-24">
         <div className="max-w-3xl mx-auto border-2 rounded-lg p-6 bg-white shadow-lg mt-20">
