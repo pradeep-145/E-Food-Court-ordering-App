@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import AdminNav from './AdminNav';
+import Navbar from './AdminNav'; // Importing the Navbar
 
 const AdminPage = () => {
   const [selectedItems, setSelectedItems] = useState([]); // Track selected items
@@ -50,77 +50,76 @@ const AdminPage = () => {
 
   return (
     <>
-      <AdminNav />
-      <section className="w-full px-4 sm:px-8 py-10 bg-gray-50">
-  <div className="max-w-3xl mx-auto border-2 rounded-lg p-6 bg-white shadow-lg mt-20">
-    <h1 className="text-2xl font-bold text-gray-800 mb-6">Manage Specials</h1>
+      <Navbar /> {/* Use the Navbar here */}
+      <div className="w-full px-4 sm:px-8 py-10 bg-[#F0F4F1] pt-24">
+        <div className="max-w-3xl mx-auto border-2 rounded-lg p-6 bg-white shadow-lg mt-20">
+          <h1 className="text-2xl font-bold text-[#4C7766] mb-6">Manage Specials</h1>
 
-    {/* Dropdown for selecting items */}
-    <div className="mb-4">
-      <label className="block text-gray-700 font-medium mb-2">Select an Item</label>
-      <select
-        onChange={(event) => {
-          const selectedItem = specialItems.find((item) => item.name === event.target.value);
-          if (selectedItem) {
-            setSelectedItems((prevItems) => [...prevItems, selectedItem]);
-          }
-        }}
-        className="w-full p-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="">Select an item</option>
-        {specialItems.map((item) => (
-          <option key={item.id} value={item.name}>
-            {item.name}
-          </option>
-        ))}
-      </select>
-    </div>
-
-    {/* Display selected items */}
-    <div className="mt-6">
-      <h2 className="text-lg font-bold mb-4 text-gray-800">Selected Items</h2>
-      {selectedItems.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {selectedItems.map((item) => (
-            <li
-              key={item.id}
-              className="flex items-center space-x-4 p-4 border rounded-lg bg-gray-100"
+          {/* Dropdown for selecting items */}
+          <div className="mb-4">
+            <label className="block text-[#4C7766] font-medium mb-2">Select an Item</label>
+            <select
+              onChange={(event) => {
+                const selectedItem = specialItems.find((item) => item.name === event.target.value);
+                if (selectedItem) {
+                  setSelectedItems((prevItems) => [...prevItems, selectedItem]);
+                }
+              }}
+              className="w-full p-2 border rounded-md text-[#4C7766] focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md" />
-              <div>
-                <h3 className="font-semibold text-gray-800">{item.name}</h3>
-                <p className="text-sm text-gray-600">Price: ${item.price.toFixed(2)}</p>
-                <p className="text-sm text-gray-600">Type: {item.type}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-gray-600">No items selected yet.</p>
-      )}
-    </div>
+              <option value="">Select an item</option>
+              {specialItems.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-    {/* Set Biryani Quantity */}
-    <div className="mt-6">
-      <label className="block text-gray-700 font-medium mb-2">Set Biryani Quantity</label>
-      <input
-        type="number"
-        name="Biryani"
-        className="w-full p-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        onChange={(e) => setBiryani(e.target.value)}
-      />
-    </div>
+          {/* Display selected items */}
+          <div className="mt-6">
+            <h2 className="text-lg font-bold mb-4 text-[#4C7766]">Selected Items</h2>
+            {selectedItems.length > 0 ? (
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {selectedItems.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-center space-x-4 p-4 border rounded-lg bg-[#F0F4F1]"
+                  >
+                    <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md" />
+                    <div>
+                      <h3 className="font-semibold text-[#4C7766]">{item.name}</h3>
+                      <p className="text-sm text-[#4C7766]">Price: ${item.price.toFixed(2)}</p>
+                      <p className="text-sm text-[#4C7766]">Type: {item.type}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-[#4C7766]">No items selected yet.</p>
+            )}
+          </div>
 
-    {/* Save Button */}
-    <button
-      className="w-full mt-6 bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition duration-300"
-      onClick={handleSave}
-    >
-      Save
-    </button>
-  </div>
-</section>
+          {/* Set Biryani Quantity */}
+          <div className="mt-6">
+            <label className="block text-[#4C7766] font-medium mb-2">Set Biryani Quantity</label>
+            <input
+              type="number"
+              name="Biryani"
+              className="w-full p-2 border rounded-md text-[#4C7766] focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={(e) => setBiryani(e.target.value)}
+            />
+          </div>
 
+          {/* Save Button */}
+          <button
+            className="w-full mt-6 bg-[#4C7766] text-white py-2 rounded-md font-semibold hover:bg-[#4C7766] hover:bg-opacity-80 transition duration-300"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        </div>
+      </div>
     </>
   );
 };

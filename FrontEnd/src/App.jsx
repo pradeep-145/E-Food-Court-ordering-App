@@ -64,7 +64,9 @@ function App() {
          <ContactUs />
         </div>
       } />
-      <Route path='/admin' element={<Home />} />
+      <Route path='/admin' element={
+        <div style={{backgroundColor: '#F0F4F1', minHeight: '100vh', width:'100%', height:'100%'}} ><Home />  </div>} />
+
       <Route path='/orderList' element={<OrderList/>} />
       <Route path='/orderHistory' element={<OrderHistory/>} />  
       </Routes>

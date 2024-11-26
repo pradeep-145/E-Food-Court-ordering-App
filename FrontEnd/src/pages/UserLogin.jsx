@@ -79,7 +79,7 @@ const UserLogin = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="p-10 shadow-2xl shadow-black rounded-3xl bg-orange-600 border-4 border-black font-sans max-w-sm w-96">
+            <div className="p-10 shadow-2xl rounded-3xl bg-[#4C7766] font-sans max-w-sm w-96">
                 <h1 className="text-4xl text-center mb-6 font-bold text-black"> User Login</h1>
 
                 <form onSubmit={(e) => e.preventDefault()}> {/* Prevent default form submission */}
