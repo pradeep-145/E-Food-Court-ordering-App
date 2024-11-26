@@ -1,45 +1,66 @@
-import React from 'react'
-import { useEffect, useState } from 'react';
-import  axios from 'axios';
+import React, { useState } from 'react';
+import AdminNav from './AdminNav';
+
 const OrderHistory = () => {
-  const [orderHistory, setOrderHistory] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:5000/admin/history')
-      .then((response) => {
-        console.log(response.data);
-        setOrderHistory(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  const [orderHistory, setOrderHistory] = useState([
+    {
+      id: 1,
+      items: [
+        { id: 1, name: 'Pizza', quantity: 2 },
+        { id: 2, name: 'Burger', quantity: 1 },
+        { id: 3, name: 'Coke', quantity: 1 },
+      ],
+      totalPrice: 100,
+      createdAt: '2021-09-01T12:34:56.000Z',
+    },
+    {
+      id: 2,
+      items: [
+        { id: 4, name: 'Pasta', quantity: 1 },
+        { id: 5, name: 'Garlic Bread', quantity: 2 },
+      ],
+      totalPrice: 50,
+      createdAt: '2021-09-02T12:34:56.000Z',
+    },
+  ]);
+
   return (
     <>
-      <div className="max-w-screen-md mx-auto px-2 pt-20">
-        <h2 className="text-3xl font-bold text-center">Order History</h2>
-        <div className="mt-4 border-2 rounded-lg p-4">
-          <table className="w-full">
+      <AdminNav />
+      <div className="max-w-screen-md mx-auto px-4 pt-20">
+        <h2 className="text-3xl font-bold text-center mb-6">Order History</h2>
+        <div className="overflow-x-auto border-2 rounded-lg">
+          <table className="w-full table-auto">
             <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Items</th>
-                <th>Price</th>
-                <th>Ordered At</th>
+              <tr className="bg-gray-200 text-left text-sm sm:text-base">
+                <th className="px-4 py-2">Order ID</th>
+                <th className="px-4 py-2">Items</th>
+                <th className="px-4 py-2">Price</th>
+                <th className="px-4 py-2">Ordered At</th>
               </tr>
             </thead>
             <tbody>
-              {orderHistory.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>
-                    <ul>
+              {orderHistory.map((order, index) => (
+                <tr
+                  key={order.id}
+                  className={`text-sm sm:text-base ${
+                    index % 2 === 0 ? 'bg-gray-100' : 'bg-white'
+                  }`}
+                >
+                  <td className="px-4 py-2">{order.id}</td>
+                  <td className="px-4 py-2">
+                    <ul className="list-disc pl-5">
                       {order.items.map((item) => (
-                        <li key={item.id}>{item.name} x {item.quantity}</li>
+                        <li key={item.id}>
+                          {item.name} x {item.quantity}
+                        </li>
                       ))}
                     </ul>
                   </td>
-                  <td>${order.totalPrice}</td>
-                  <td>{order.createdAt}</td>
+                  <td className="px-4 py-2">${order.totalPrice}</td>
+                  <td className="px-4 py-2 whitespace-nowrap">
+                    {new Date(order.createdAt).toLocaleString()}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -47,7 +68,7 @@ const OrderHistory = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default OrderHistory
+export default OrderHistory;
