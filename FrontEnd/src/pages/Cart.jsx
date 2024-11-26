@@ -33,22 +33,18 @@ const Cart = () => {
     
     const handlePayment = async () => {
         try {
-          // Call backend to create an orde
           console.log(token)
           const response = await axios.post(
             'http://localhost:5000/protected/create-order', 
-            { amount: 80000 },  // Request body
+            { amount: 80000 }, 
             { 
               headers: {
                 'Authorization': `Bearer ${token}`,
               }
-            }  // Headers
+            }
           );
-    
           const { id: order_id, amount, currency } = response.data;
           console.log(response.data);
-    
-          
           const options = {
             key: 'rzp_test_KjWqiF0J29xI5A',
             amount: amount, 
@@ -91,8 +87,6 @@ const Cart = () => {
                             'Authorization': `Bearer ${token}`
                         }
                     })
-
-
                     navigate('/token')
                     setCartItems([]);
                 }
@@ -109,15 +103,11 @@ const Cart = () => {
               color: '#3399cc',
             },
           };
-    
           const razorpay = new window.Razorpay(options);
           razorpay.open();
         } catch (error) {
           console.error('Error in payment process:', error);
         }
-        
-       
-
     }
     
 
