@@ -36,7 +36,7 @@ const Cart = () => {
           console.log(token)
           const response = await axios.post(
             'http://localhost:5000/protected/create-order', 
-            { amount: 80000 }, 
+            { amount:totalPrice*100 }, 
             { 
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ const Cart = () => {
     }
     
 
-    const removeFromCart = (index) => {
+    const removeFromCart = (index,name,quantity) => {
         const updatedCart = cartItems.filter((item, itemIndex) => itemIndex !== index);
         axios.post('http://localhost:5000/protected/cart/remove',{
             'user':username,
@@ -128,6 +128,31 @@ const Cart = () => {
             console.log(err);
         }
         )
+        if(name=="Chicken Biryani"){
+            axios.get('http://localhost:5000/protected/',{
+                "headers": {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then((response)=>{
+                console.log(response.data[5])
+                axios.put('http://localhost:5000/protected/',{
+                    'quantity':response.data[5].quantity+quantity
+                },{
+                    "headers": {
+                            'Authorization': `Bearer ${token}`
+                    }}).then((response)=>{
+                        console.log(response)
+                    }
+                ).catch((err)=>{
+                    console.log(err)
+                }
+                )
+
+        }).catch((err)=>{
+            console.log(err)
+        })
+        }
+
 
         setCartItems(updatedCart);          
     };
@@ -152,7 +177,7 @@ const Cart = () => {
                                 <div className="text-right flex items-center gap-4">
                                     <p className="text-xl font-bold">₹{item.price * item.quantity}</p>
                                     <button 
-                                        onClick={() => removeFromCart(index)} 
+                                        onClick={() => removeFromCart(index,item.name,item.quantity)} 
                                         className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl">
                                         Remove
                                     </button>
