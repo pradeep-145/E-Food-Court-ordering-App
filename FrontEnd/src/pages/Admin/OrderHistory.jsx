@@ -4,8 +4,9 @@ import  axios from 'axios';
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/admin/orderHistory')
+    axios.get('http://localhost:5000/admin/history')
       .then((response) => {
+        console.log(response.data);
         setOrderHistory(response.data);
       })
       .catch((error) => {

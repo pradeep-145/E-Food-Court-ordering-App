@@ -5,7 +5,7 @@ from utils import *
 from razorpay import *
 from dotenv import load_dotenv
 import os
-
+from datetime import datetime
 load_dotenv()
 protected_bp=Blueprint('protected',__name__)
 data=None
@@ -25,6 +25,11 @@ def check_token():
         data=verify_token(token)
         if data=="Unauthorized" or not data:
             return jsonify({'message':'Unauthorized'})
+
+if(datetime.utcnow().hour==0 and datetime.utcnow().minute==0):
+    special.__table__.drop(db.engine)
+    
+
 
 @protected_bp.route('/verify',methods=['GET'])
 def home():
@@ -138,7 +143,12 @@ def get_cart(username):
     output=[{'user':item.user,'items':item.item} for item in cart_items]
     return jsonify(output)
 
-
+@protected_bp.route('/cart-remove/<username>',methods=['DELETE'])
+def remove_cart(username):
+    cart_items=cart.query.filter_by(user=username).first()
+    db.session.delete(cart_items)
+    db.session.commit()
+    return jsonify({'message':'Cart removed successfully!'})
 
 @protected_bp.route('/special',methods=['GET'])
 def special_food():

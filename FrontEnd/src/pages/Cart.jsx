@@ -75,6 +75,27 @@ const Cart = () => {
     
               if (verifyResponse.data.status === 'success') {
                 alert('Payment successful!');
+                const order=await axios.post('http://localhost:5000/protected/orderlist', {
+                
+                    orders:cartItems
+                },{
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    } ,
+                })
+                console.log(order)
+                if(order.data.success){
+                    console.log('Order placed successfully');
+                    await axios.delete(`http://localhost:5000/protected/cart-remove/${username}`,{
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+
+
+                    navigate('/token')
+                    setCartItems([]);
+                }
               } else {
                 alert('Payment verification failed.');
               }
@@ -94,34 +115,8 @@ const Cart = () => {
         } catch (error) {
           console.error('Error in payment process:', error);
         }
-        // const response=await axios.post('http://localhost:5000/protected/checkout', {
-           
-        //     'user':username,
-        //     'items':cartItems
-        // },{
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`
-        //     } ,
-        // })
-        // console.log(response.data)
-        // if(response.data.success){
-        //     const order=await axios.post('http://localhost:5000/protected/orderlist', {
-                
-        //         orders:cartItems
-        //     },{
-        //         headers: {
-        //             'Authorization': `Bearer ${token}`
-        //         } ,
-        //     })
-        //     console.log(order)
-        //     if(order.data.success){
-        //         console.log('Order placed successfully');
-        //         navigate('/token')
-        //         setCartItems([]);
-        //     }
-        // }else{
-        //     console.log('Payment failed');
-        // }
+        
+       
 
     }
     

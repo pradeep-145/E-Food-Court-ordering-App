@@ -36,9 +36,9 @@ const AdminLogin = () => {
     });
 
     const handleSubmit = async () => {
+        console.log(email,password)
         try {
-            const res = await axios.post('http://localhost:5000/admin/login', { email, password });
-            
+            const res = await axios.post('http://localhost:5000/auth/adminLogin', { email, password });
             // Check for successful login message
             if (res.data.message === 'Success') {
                 console.log('Login Successful');
@@ -47,7 +47,7 @@ const AdminLogin = () => {
                 
                 setTimeout(() => {
                     localStorage.setItem('admin_token', res.data.token);
-                    navigate('/home');
+                    navigate('/admin');
                 }, 1000); // 1 second delay to allow toast display
             } else {
                 console.log(res.message);

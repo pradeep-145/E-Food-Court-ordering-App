@@ -45,8 +45,9 @@ def login():
 @auth_bp.route('/adminLogin',methods=['POST'])
 def admin_login():
     data=request.get_json()
-    username=data.get('username')
+    username=data.get('email')
     password=data.get('password')
+    print(data)
     if username==os.getenv('ADMIN_USERNAME') and password==os.getenv('ADMIN_PASSWORD'):
         token=create_token(username)
         return jsonify({'message':'Success','token':token})

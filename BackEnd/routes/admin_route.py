@@ -72,3 +72,11 @@ def orderHistory():
         orders.append(i.orders)
     return jsonify({'orders':orders})
 
+
+@admin_bp.route('/add-history',methods=['POST'])
+def addHistory():
+    data=request.get_json()
+    new_order=order_history(orders=data['orders'])
+    db.session.add(new_order)
+    db.session.commit()
+    return jsonify({'message':'Order added successfully!'}),200

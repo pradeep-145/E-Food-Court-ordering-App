@@ -15,7 +15,11 @@ useEffect(()=>{
   fetch()
   
 },[])
-  const handlePrint=()=>{
+  const handlePrint=async()=>{
+    const response=await axios.post('http://localhost:5000/admin/add-history',{
+      orders
+    })
+    console.log(response.data)
     window.print()
   }
 
