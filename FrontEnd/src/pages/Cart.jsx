@@ -165,8 +165,7 @@ const Cart = () => {
                             <p className="text-2xl font-bold">₹{totalPrice}</p>
                         </div>
                         <div className='flex w-48 ml-60 '>
-                        <button                                         className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl
-mt-6 w-full" onClick={handlePayment}>
+                        <button className="bg-white  text-[#4C7766] font-bold py-1 px-3 rounded-xl mt-6 w-full" onClick={handlePayment}>
                             Proceed to Payment
                         </button>
                         </div>
