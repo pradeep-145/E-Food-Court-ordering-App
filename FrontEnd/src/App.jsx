@@ -14,8 +14,9 @@ import bg from './assets/hd.png'
 import contactbg from './assets/bg.png'
 import OrderHistory from './pages/Admin/OrderHistory';
 import OrderList from './pages/Admin/OrderList';
-
+import Token from './pages/Token';
 function App() {
+  
     return (
     <Router>
       <Routes>
@@ -67,6 +68,7 @@ function App() {
       <Route path='/admin' element={<Home />} />
       <Route path='/orderList' element={<OrderList/>} />
       <Route path='/orderHistory' element={<OrderHistory/>} />  
+      <Route path='/token' element={<Token/>} />
       </Routes>
     </Router>
     );

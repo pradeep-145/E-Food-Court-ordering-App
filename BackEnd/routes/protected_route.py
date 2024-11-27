@@ -70,7 +70,15 @@ def cart_update():
         message = 'All items added to cart successfully!'
     db.session.commit()
     return jsonify({'message': message})
-
+@protected_bp.route('/token', methods=['GET'])
+def token():
+    last = order_list.query.order_by(order_list.id.desc()).first()
+    
+    if last:  # Check if a record exists
+        output = {'id': last.id, 'orders': last.orders}
+        return jsonify({'data': output})
+    else:
+        return jsonify({'message': 'No records found!'}), 404
 
 
 @protected_bp.route('/cart/remove', methods=['POST'])

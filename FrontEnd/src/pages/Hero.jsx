@@ -133,10 +133,10 @@ const Hero = () => {
             <p className="text-md sm:text-lg">{item.type}</p>
             <p className="text-md sm:text-lg font-bold">Price: ₹{item.price}</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex justify-center gap-4">
             <button
               onClick={() => openDialog(item, "cart")}
-              className="bg-white text-[#4C7766] border-2 hover:border-gray-400 font-bold py-2 px-4 rounded-lg mt-4 transition duration-200"
+              className="bg-white text-[#4C7766] border-2 hover:border-gray-400 font-bold py-2 px-4 rounded-2xl mt-4 transition duration-200"
             >
               Add to Cart
             </button>
@@ -150,7 +150,7 @@ const Hero = () => {
     <h2 className="text-2xl sm:text-3xl md:text-4xl text-black font-bold px-4 sm:px-8 md:px-10 pt-12">
       Check out our Menu
     </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-4 sm:px-8 md:px-10 py-6">
+    <div className="grid grid-cols-1 mx-9 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-4 sm:px-8 md:px-10 py-6">
       {menuItems.map((item) => (
         <div
           key={item.id}
@@ -167,10 +167,10 @@ const Hero = () => {
             <p className="text-sm sm:text-lg">{item.type}</p>
             <p className="text-sm sm:text-lg font-bold">Price: ₹{item.price}</p>
           </div>
-          <div className="flex">
+          <div className="flex justify-center ">
             <button
               onClick={() => openDialog(item, "cart")}
-              className="bg-white text-[#4C7766] border-2 hover:border-gray-400 font-bold py-2 px-4 rounded-lg mt-4 transition duration-200"
+              className="bg-white text-[#4C7766] border-2 hover:border-gray-400 font-bold py-2 px-4 rounded-2xl mt-4 transition duration-200"
             >
               Add to Cart
             </button>
