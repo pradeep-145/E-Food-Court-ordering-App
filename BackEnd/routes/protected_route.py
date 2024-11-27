@@ -72,14 +72,16 @@ def cart_update():
     return jsonify({'message': message})
 @protected_bp.route('/token', methods=['GET'])
 def token():
-    last = order_list.query.order_by(order_list.id.desc()).first()
+    data = order_list.query.order_by(order_list.id.desc()).first()
+    orders=[]
     
-    if last:  # Check if a record exists
-        output = {'id': last.id, 'orders': last.orders}
-        return jsonify({'data': output})
-    else:
-        return jsonify({'message': 'No records found!'}), 404
+    order = {
+        'id': data.id,
+        'order': data.orders  # Assuming 'order' is a JSON fieldyou may need to convert it to a dictionary
+    }
+    orders.append(order)  # Append the formatted order to the list
 
+    return jsonify({'orders': orders, 'success': True})
 
 @protected_bp.route('/cart/remove', methods=['POST'])
 def cart_remove():
