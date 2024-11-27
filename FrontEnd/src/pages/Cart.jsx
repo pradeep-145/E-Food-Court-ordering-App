@@ -88,7 +88,6 @@ const Cart = () => {
             console.log(order);
             if (order.data.success) {
               console.log("Order placed successfully");
-
               await axios.delete(
                 `http://localhost:5000/protected/cart-remove/${username}`,
                 {
@@ -188,7 +187,7 @@ const Cart = () => {
             {cartItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-row justify-between border-b py-4 items-center sm:items-start"
+                className="flex flex-col sm:flex-row justify-between border-b py-4 items-center sm:items-start"
               >
                 <div className="text-center sm:text-left">
                   <h2 className="text-xl font-semibold">{item.name}</h2>

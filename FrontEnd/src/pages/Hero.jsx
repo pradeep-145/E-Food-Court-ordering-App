@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast"; // Import for toaster notifica
 import "../App.css";
 import Navbar from "../components/Navbar";
 
+
 const Hero = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [special, setSpecial] = useState([]);

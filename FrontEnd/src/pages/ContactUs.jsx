@@ -7,7 +7,7 @@ const ContactUs = () => {
       <Navbar />
       <div className="flex flex-col justify-center items-center min-h-screen pt-20 px-4 bg-gray-50">
         {/* Page Header */}
-        <div className="text-[#4C7766] font-bold text-5xl text-center mt-20">
+        <div className="text-[#4C7766] font-bold text-5xl text-center">
           Get in Touch with Us
         </div>
 

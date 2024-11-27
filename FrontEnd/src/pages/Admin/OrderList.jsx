@@ -11,32 +11,32 @@ const OrderList = () => {
     if (response.data.success) {
       setOrders(response.data.orders);
     }
-  }
-useEffect(()=>{
-  fetch()
-  
-},[])
+  };
 
-  const handlePrint=async()=>{
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const handlePrint = async () => {
     const currentDateTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-    const response=await axios.post('http://localhost:5000/admin/add-history',{
+    const response = await axios.post('http://localhost:5000/admin/add-history', {
       orders,
-      time:currentDateTime
-    })
-    console.log(response.data)
-    window.print()
-  }
+      time: currentDateTime,
+    });
+    console.log(response.data);
+    window.print();
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
       <AdminNav />
       <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-6 mt-20">
+        <div className="flex justify-between items-center mt-24 mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Order List</h1>
           <button
             onClick={handlePrint}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
+            className="bg-[#4C7766] text-white px-4 py-2 rounded hover:bg-[#3a5b4c] transition"
           >
             Print Orders
           </button>
