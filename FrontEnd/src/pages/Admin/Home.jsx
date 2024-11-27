@@ -10,7 +10,16 @@ const AdminPage = () => {
   const [isLoading, setIsLoading] = useState(true); // Loading state
 
   const specialItems = [
-    // ... (your specialItems array remains unchanged)
+    { id: 1, name: 'Chicken Biryani', price: 100, type: 'Non-Veg', image: "https://www.watchwhatueat.com/wp-content/uploads/2021/05/Instant-Pot-Chicken-Biryani-9.jpg"},
+    { id: 2, name: 'Mushroom Biryani', price: 80, type: 'Veg', image:  "https://th.bing.com/th/id/OIP.FeStwxVmI1jJvtF8_EG1igHaEK?w=317&h=180&c=7&r=0&o=5&pid=1.7" },
+    { id: 3, name: 'Paneer Tikka', price: 150, type: 'Veg', image: 'https://static.fanpage.it/wp-content/uploads/sites/22/2021/08/paneer-tikka.jpg' },
+    { id: 4, name: 'Chicken Roast', price: 220, type: 'Non-Veg', image: 'https://th.bing.com/th/id/OIP.sXUJcjfIJSEE-jD9S_1IMAHaHa?w=1600&h=1600&rs=1&pid=ImgDetMain' },
+    { id: 5, name: 'Lamb Korma', price: 180, type: 'Non-Veg', image: 'https://www.simplyrecipes.com/thmb/euM5I0mKRrfVilO3ElJNt-I3EIs=/1600x1067/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2013__05__lamb-korma-horiz-a-1600-b08d7aa4f6df47f9bb0dbf40c206e0ad.jpg' },
+    { id: 6, name: 'Veg Pulao', price: 100, type: 'Veg', image: 'https://i0.wp.com/vegecravings.com/wp-content/uploads/2016/07/veg-pulao-recipe-step-by-step-instructions.jpg?fit=3840%2C2992&quality=30&strip=all&ssl=1' },
+    { id: 7, name: 'Butter Chicken', price: 170, type: 'Non-Veg', image: 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/07/chicken-butter-masala-recipe.jpg' },
+    { id: 8, name: 'Tandoori Chicken', price: 220, type: 'Non-Veg', image: 'https://th.bing.com/th/id/OIP.21xfGQ9jUczQhBfBTgASHwHaEJ?w=3960&h=2215&rs=1&pid=ImgDetMain' },
+    { id: 9, name: 'Chole Bhature', price: 80, type: 'Veg', image: 'https://as2.ftcdn.net/v2/jpg/03/97/46/67/1000_F_397466703_AI9PwXQRVSiaPEuP7I9OtMVB5ZTLlJ8l.jpg' },
+    { id: 10, name: 'Aloo Paratha', price: 70, type: 'Veg', image: 'https://th.bing.com/th/id/OIP.hyMskoW1VQY5gZVZC5u3QQHaEK?w=1600&h=900&rs=1&pid=ImgDetMain' },
   ];
 
   useEffect(() => {
