@@ -8,3 +8,4 @@ razorpay
 apscheduler
 setuptools
 mysql-connector-python
+gunicorn
