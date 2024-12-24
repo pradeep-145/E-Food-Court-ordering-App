@@ -7,3 +7,4 @@ python-dotenv
 razorpay
 apscheduler
 setuptools
+mysql
