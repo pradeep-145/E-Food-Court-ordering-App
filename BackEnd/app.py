@@ -5,7 +5,6 @@ from flask_cors import *
 from models import *
 from routes import *
 from sqlalchemy import text
-
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
