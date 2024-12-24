@@ -32,7 +32,7 @@ const AdminPage = () => {
     toast.loading('Saving...', { id: 'saveToast' }); // Show a loading toast
 
     axios
-      .post('http://localhost:5000/admin/add', { items: selectedItems })
+      .post('https://fc-app.onrender.com/admin/add', { items: selectedItems })
       .then((response) => {
         console.log(response);
         toast.success('Items saved successfully!', {
@@ -50,7 +50,7 @@ const AdminPage = () => {
 
     axios
       .put(
-        'http://localhost:5000/protected/',
+        'https://fc-app.onrender.com/protected/',
         { quantity: biryani },
         {
           headers: {

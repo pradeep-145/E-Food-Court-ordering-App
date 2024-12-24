@@ -12,7 +12,7 @@ import Welcome from './components/welcome';
 import axios from 'axios';
 import bg from './assets/hd.png'
 import contactbg from './assets/bg.png'
-import OrderHistory from './pages/Admin/OrderHistory';
+
 import OrderList from './pages/Admin/OrderList';
 import Token from './pages/Token';
 function App() {
@@ -69,7 +69,7 @@ function App() {
         <div style={{backgroundColor: '#F0F4F1', minHeight: '100vh', width:'100%', height:'100%'}} ><Home />  </div>} />
 
       <Route path='/orderList' element={<OrderList/>} />
-      <Route path='/orderHistory' element={<OrderHistory/>} />  
+      
       <Route path='/token' element={<Token/>} />
       </Routes>
     </Router>

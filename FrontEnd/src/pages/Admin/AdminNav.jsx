@@ -48,13 +48,7 @@ const Navbar = () => {
                     >
                         Order List
                     </Link>
-                    <Link
-                        to="/orderHistory"
-                        onClick={() => setIsOpen(false)}
-                        className="text-lg hover:text-gray-200"
-                    >
-                        Order History
-                    </Link>
+                    
                     <Link
                         to="/adminLogin"
                         onClick={() => {
@@ -88,15 +82,7 @@ const Navbar = () => {
                         Order List
                     </Link>
                 </div>
-                <div>
-                    <Link
-                        to="/orderHistory"
-                        onClick={() => setIsOpen(false)}
-                        className="text-white hover:border-b-4 hover:scale-y-105 hover:border-black hover:text-black p-2"
-                        >
-                        Order History
-                    </Link>
-                </div>
+                
                 <div>
                     <Link
                         to="/adminLogin"

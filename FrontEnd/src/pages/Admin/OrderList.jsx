@@ -6,7 +6,7 @@ const OrderList = () => {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const response = await axios.get('http://localhost:5000/admin/orders');
+    const response = await axios.get('https://fc-app.onrender.com/admin/orders');
     console.log(response);
     if (response.data.success) {
       setOrders(response.data.orders);
@@ -20,7 +20,7 @@ const OrderList = () => {
   const handlePrint = async () => {
     const currentDateTime = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-    const response = await axios.post('http://localhost:5000/admin/add-history', {
+    const response = await axios.post('https://fc-app.onrender.com/admin/add-history', {
       orders,
       time: currentDateTime,
     });

@@ -10,7 +10,7 @@ const UserRegister = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
     useEffect(()=>{
-        axios.get('http://localhost:5000/protected/')
+        axios.get('https://fc-app.onrender.com/protected/')
     })
     const notifySuccess = () => {
         toast.success('User registered successfully!', {
@@ -50,7 +50,7 @@ const UserRegister = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/auth/register', { username:email, password });
+            const response = await axios.post('https://fc-app.onrender.com/auth/register', { username:email, password });
             if (response.data.message === 'User added successfully!') {
                 notifySuccess();
                 navigate('/');

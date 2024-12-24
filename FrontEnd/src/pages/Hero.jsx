@@ -19,7 +19,7 @@ const Hero = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/protected/", {
+      .get("https://fc-app.onrender.com/protected/", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -33,7 +33,7 @@ const Hero = () => {
       });
 
     axios
-      .get("http://localhost:5000/protected/special", {
+      .get("https://fc-app.onrender.com/protected/special", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -60,7 +60,7 @@ const Hero = () => {
     const updatedItem = { ...selectedItem, quantity };
     axios
       .post(
-        "http://localhost:5000/protected/cart",
+        "https://fc-app.onrender.com/protected/cart",
         {
           user: localStorage.getItem("username"),
           item: [
@@ -82,7 +82,7 @@ const Hero = () => {
         console.log("Item added to cart:", response.data);
         axios
       .put(
-        'http://localhost:5000/protected/',
+        'https://fc-app.onrender.com/protected/',
         { quantity: (biryani - quantity) },
         {
           headers: {

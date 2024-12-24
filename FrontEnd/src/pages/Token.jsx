@@ -14,7 +14,7 @@ const Token = () => {
     }
 
     axios
-      .get('http://localhost:5000/protected/token', {
+      .get('https://fc-app.onrender.com/protected/token', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -17,7 +17,7 @@ const Cart = () => {
   useEffect(() => {
     if (username) {
       axios
-        .get(`http://localhost:5000/protected/cart/${username}`, {
+        .get(`https://fc-app.onrender.com/protected/cart/${username}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +37,7 @@ const Cart = () => {
     try {
       console.log(token);
       const response = await axios.post(
-        "http://localhost:5000/protected/create-order",
+        "https://fc-app.onrender.com/protected/create-order",
         { amount: totalPrice*100 },
         {
           headers: {
@@ -73,9 +73,9 @@ const Cart = () => {
 
           if (verifyResponse.data.status === "success") {
             alert("Payment successful!");
-            setViewToken(true);
+            navigate("/token");
             const order = await axios.post(
-              "http://localhost:5000/protected/orderlist",
+              "https://fc-app.onrender.com/protected/orderlist",
               {
                 orders: cartItems,
               },
@@ -89,7 +89,7 @@ const Cart = () => {
             if (order.data.success) {
               console.log("Order placed successfully");
               await axios.delete(
-                `http://localhost:5000/protected/cart-remove/${username}`,
+                `https://fc-app.onrender.com/protected/cart-remove/${username}`,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`,
@@ -123,7 +123,7 @@ const Cart = () => {
     const updatedCart = cartItems.filter((item, itemIndex) => itemIndex !== index);
     axios
       .post(
-        "http://localhost:5000/protected/cart/remove",
+        "https://fc-app.onrender.com/protected/cart/remove",
         {
           user: username,
           item: updatedCart,
@@ -138,13 +138,13 @@ const Cart = () => {
         }
         )
         if(name=="Chicken Biryani"){
-            axios.get('http://localhost:5000/protected/',{
+            axios.get('https://fc-app.onrender.com/protected/',{
                 "headers": {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((response)=>{
                 console.log(response.data[5])
-                axios.put('http://localhost:5000/protected/',{
+                axios.put('https://fc-app.onrender.com/protected/',{
                     'quantity':response.data[5].quantity+quantity
                 },{
                     "headers": {
@@ -226,13 +226,7 @@ const Cart = () => {
           </p>
         )}
       </div>
-      {
-        viewToken&&(
-            <div className="w-screen h-screen">
-                <Token token={cartItems} />
-            </div>
-      )
-      }
+      
 
     </>
   );

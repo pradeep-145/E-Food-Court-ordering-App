@@ -12,7 +12,7 @@ const UserLogin = () => {
         const token=localStorage.getItem('token')
 
         if(token){
-            axios.get("http://localhost:5000/protected/verify",{
+            axios.get("https://fc-app.onrender.com/protected/verify",{
                 headers:{
                     "Authorization":"Bearer "+token
                 }
@@ -55,7 +55,7 @@ const UserLogin = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await axios.post('http://localhost:5000/auth/login', { username:email, password });
+            const res = await axios.post('https://fc-app.onrender.com/auth/login', { username:email, password });
 
             if (res.data.message === 'Success') {
                 console.log('Login Successful');

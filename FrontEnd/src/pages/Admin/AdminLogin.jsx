@@ -38,7 +38,7 @@ const AdminLogin = () => {
     const handleSubmit = async () => {
         console.log(email,password)
         try {
-            const res = await axios.post('http://localhost:5000/auth/adminLogin', { email, password });
+            const res = await axios.post('https://fc-app.onrender.com/auth/adminLogin', { email, password });
             // Check for successful login message
             if (res.data.message === 'Success') {
                 console.log('Login Successful');
