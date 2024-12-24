@@ -8,7 +8,7 @@ import Hero from './pages/Hero';
 import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
 import Home from './pages/Admin/Home';
-import Welcome from './components/welcome';
+import Welcome from './components/Welcome';
 import axios from 'axios';
 import bg from './assets/hd.png'
 import contactbg from './assets/bg.png'
