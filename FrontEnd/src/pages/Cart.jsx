@@ -56,7 +56,7 @@ const Cart = () => {
         order_id: order_id,
         handler: async (response) => {
           const verifyResponse = await axios.post(
-            "http://127.0.0.1:5000/protected/verify-payment",
+            "https://fc-app.onrender.com/protected/verify-payment",
             {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
